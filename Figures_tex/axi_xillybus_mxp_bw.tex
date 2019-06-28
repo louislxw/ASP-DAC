@@ -1,0 +1,133 @@
+\pgfplotsset{
+	axis background/.style={fill=white},
+	tick style=black,
+	tick label style=black,
+	grid=both,
+	xtick pos=left,
+	ytick pos=left,
+	tick style={
+		major grid style={style=white,line width=1pt},minor grid style=white,
+		tick align=outside,
+	},
+	minor tick num=4,
+}
+
+\begin{figure}[tb]
+	\centering
+	\pgfplotstableread{
+		0		379.7	342		217		195.4
+		1		245.7	317		226.7	292.6
+		2		203.1	422		227.5	472.6
+		3		94		158.7	225.6	380.9
+		4		83.9	207.9	233.5	578.5
+		5		53.9	142		229.9	605.9
+		6		49.7	127.9	227.1	584.7
+		7		52.7	134		225.8	574.3
+	}\datathroughput	
+%	\pgfplotstableread{
+%		0		379.7	342		434		390
+%		1		237		317		292		390
+%		2		191.4	422		245		540
+%		3		94		158.7	376		635
+%		4		77.8	207.9	230		942
+%		5		51.4	142		233		644
+%		6		47.2	127.9	243		658
+%		7		50.6	134		246		651
+%	}\datathroughput
+	\subfigure[Data processing throughput in MB/s]{
+		\begin{tikzpicture}[scale = 0.9]
+		\centering
+		\begin{axis}[
+%		axis y line=left,
+		ybar=0pt,
+		width=17cm,
+		x = 0.85cm,
+		height=5.3cm,
+		ymin=0,
+		ymax=1000,        
+		ylabel={MB/s},
+		grid style={dotted,gray},
+		ymajorgrids=true,
+		%	nodes near coords,    
+		xtick=data,
+		bar width = 5, %0.2
+		xticklabels = {
+			\strut 1,
+			\strut 2,
+			\strut 3,
+			\strut 4,
+			\strut 5,
+			\strut 6,
+			\strut 7,
+			\strut 8                                   
+		},
+		x tick label style={rotate=45, anchor=north east, inner sep=0mm},
+		major x tick style = {opacity=0},
+		minor x tick num = 1,
+		minor tick length=1ex,
+		%	every node near coord/.append style={
+		%		anchor=west,
+		%		rotate=90,
+		%		font=\tiny
+		%	},
+		]
+		
+		\addplot[draw=black,fill=blue, draw opacity=1] table[x index=0,y index=3] \datathroughput;\label{MB_xillybus_axi}
+		\addplot[draw=black,fill=red, draw opacity=1] table[x index=0,y index=4]   \datathroughput;\label{MB_mxp} 					
+		\end{axis}
+		
+		\node [draw=none, fill=white] at (rel axis cs: 0.4, 0.8) {\shortstack[l]{
+				\ref{MB_xillybus_axi} AXI-Xillybus-Overlay \\ \ref{MB_mxp} MXP-V16 }};	
+		\end{tikzpicture}
+	}
+
+	\subfigure[Throughput in MOPS]{
+		\begin{tikzpicture}[scale = 0.9]
+		\centering
+		\begin{axis}[
+%		axis y line=right,
+		ybar=0pt,
+		width=17cm,
+		x = 0.85cm,
+		height=5.3cm,
+		ymin=0,
+		ymax=800,        
+		ylabel={MOPS},
+		grid style={dotted,gray},
+		ymajorgrids=true,
+		%	nodes near coords,    
+		xtick=data,
+		bar width = 5, %0.2
+		xticklabels = {
+			\strut 1,
+			\strut 2,
+			\strut 3,
+			\strut 4,
+			\strut 5,
+			\strut 6,
+			\strut 7,
+			\strut 8                                   
+		},
+		x tick label style={rotate=45, anchor=north east, inner sep=0mm},
+		major x tick style = {opacity=0},
+		minor x tick num = 1,
+		minor tick length=1ex,
+		%	every node near coord/.append style={
+		%		anchor=west,
+		%		rotate=90,
+		%		font=\tiny
+		%	},
+		]
+		
+		\addplot[draw=black,fill=blue, draw opacity=1] table[x index=0,y index=1] \datathroughput;\label{MOPS_xillybus_axi}
+		\addplot[draw=black,fill=red, draw opacity=1] table[x index=0,y index=2]   \datathroughput;\label{MOPS_mxp} 					
+		\end{axis}
+		
+		\node [draw=none, fill=white] at (rel axis cs: 0.4, 0.8) {\shortstack[l]{
+				\ref{MOPS_xillybus_axi} AXI-Xillybus-Overlay \\ \ref{MOPS_mxp} MXP-V16 }};	
+		\end{tikzpicture}
+	}
+	
+	\caption{Performance comparison for the benchmarks using a transfer size of 1M words.}
+	\label{axi_xillybus_mxp_bw}
+\end{figure}

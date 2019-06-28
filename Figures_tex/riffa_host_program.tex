@@ -1,0 +1,97 @@
+\lstset{%
+	% Basic design
+	backgroundcolor=\color{lightgray},
+	basicstyle={\scriptsize\ttfamily},   
+	frame=l,
+	% Line numbers
+	xleftmargin={0.75cm},
+	numbers=left,
+	stepnumber=1,
+	firstnumber=1,
+	numberfirstline=true,
+	% Code design
+	identifierstyle=\color{black},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywordstyle=\color{greenCode}\bfseries,
+	stringstyle=\color{ocherCode}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	% Code
+	%	language={Python},
+	language={C},
+	tabsize=3,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	extendedchars=true,
+	breaklines=true
+}
+\begin{figure}
+	\centering	
+	\begin{lstlisting}[columns=fullflexible, language=C]
+	#include <stdlib.h>
+	#include <stdio.h>
+	#include "timer.h"
+	#include "riffa.h"
+	#define NUM_TESTS 100
+	
+	int main(int argc, char** argv) {
+	fpga_t * fpga;
+	int id;
+	int chnl;
+	size_t numWords;
+	int sent;
+	int recvd;
+	unsigned int * sendBuffer;
+	unsigned int * recvBuffer;
+	int err;	
+	id = atoi(argv[2]);
+	chnl = atoi(argv[3]);
+	numWords = atoi(argv[4]);
+	GET_TIME_INIT(3);	
+	// Get the device with id
+	fpga = fpga_open(id);
+	// Malloc the arrays
+	sendBuffer = (unsigned int *)malloc(numWords*4);
+	if (sendBuffer == NULL) {
+		printf("Could not malloc memory for sendBuffer\n");
+		fpga_close(fpga);
+		return -1;
+		}
+	recvBuffer = (unsigned int *)malloc(numWords*4 + 4);
+	recvBuffer +=1;	
+	for (int j = 0; j < NUM_TESTS + 1; ++j) {
+	// Initialize the data
+		for (int i = 0; i < numWords; i++) {
+			sendBuffer[i] = i+1;
+			recvBuffer[i] = 0;
+			}
+		GET_TIME_VAL(0);
+		// Send the data
+		sent = fpga_send(fpga, chnl, sendBuffer, numWords, 0, 1, 25000);
+		printf("Test %d: words sent: %d\n", j, sent);
+		GET_TIME_VAL(1);	
+		if (sent != 0) {
+		// Recv the data
+		recvd = fpga_recv(fpga, chnl, recvBuffer, numWords, 25000);
+		printf("Test %d: words recv: %d\n", j, recvd);
+		}	
+		GET_TIME_VAL(2);	
+		// Check the data
+		for (i = 4; i < recvd; i++) {
+		if (recvBuffer[i] != sendBuffer[i]) {
+		printf("recvBuffer[%d]: %d, expected %d\n", i, recvBuffer[i], sendBuffer[i]);
+		return;
+		}
+		}	
+		if (j > 0) {
+		printf("send bw: %f\n",	sent*4.0/1024/1024/((TIME_VAL_TO_MS(1) - TIME_VAL_TO_MS(0))/1000.0)); 
+		printf("recv bw: %f\n",	recvd*4.0/1024/1024/((TIME_VAL_TO_MS(2) - TIME_VAL_TO_MS(1))/1000.0)); 
+		}
+		}
+	// Done with device
+	fpga_close(fpga);
+}	
+	\end{lstlisting}
+	\caption{RIFFA host program in C.}
+	\label{riffa_host_program}
+\end{figure}

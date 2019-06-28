@@ -1,0 +1,80 @@
+\lstset{%
+	% Basic design
+	backgroundcolor=\color{lightgray},
+	basicstyle={\scriptsize\ttfamily},   
+	frame=l,
+	% Line numbers
+	xleftmargin={0.75cm},
+	numbers=left,
+	stepnumber=1,
+	firstnumber=1,
+	numberfirstline=true,
+	% Code design
+	identifierstyle=\color{black},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywordstyle=\color{greenCode}\bfseries,
+	stringstyle=\color{ocherCode}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	% Code
+	%	language={Python},
+	language={C},
+	tabsize=3,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	extendedchars=true,
+	breaklines=true
+}
+\begin{figure}[!h]
+	\centering	
+	\begin{lstlisting}[columns=fullflexible, language=C]
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <errno.h>
+	#include <fcntl.h>
+	#include <unistd.h>
+	#include <sys/types.h>
+	#include <sys/stat.h>
+	#include <sys/time.h>
+		
+	int fdr32 = 0;
+	int fdw32 = 0;
+	int N = 0;
+	int *array_input;
+	int *array_hardware;
+	struct timeval tv1, tv2; 	
+	int main(int argc, char *argv[]) {
+	fdr32 = open("/dev/xillybus_read_32", O_RDONLY);
+	fdw32 = open("/dev/xillybus_write_32", O_WRONLY);
+	N = atoi(argv[1]);
+	if (fdr32 < 0 || fdw32 < 0) {
+	perror("Failed to open devfiles");
+	exit(1);
+	}
+	//allocate memory
+	array_input = (int*)malloc(N*sizeof(int));
+	array_hardware = (int*)malloc(N*sizeof(int));
+	//initialize the inputs and outputs
+	for(int i = 0; i < N; i++){
+	array_input[i] = i;
+	array_hardware[i] = 0;
+	}
+	//Measure the excution time
+	gettimeofday(&tv1, NULL);
+	write(fdw32, array_input, sizeof(int)*N);
+	write(fdw32, NULL, 0); //an indicator at the end of writing data
+	read(fdr32, array_hardware, sizeof(int)*N);
+	gettimeofday(&tv2, NULL); 
+	for(i = 0; i < N; i++){
+	if(array_input[i] != array_hardware[i]) {
+		printf("recv[%d]: %d , expected %d \n\r", i, array_hardware[i], array_input[i]);
+		return;
+		}
+	}
+	printf("round-trip bw: %f MB/s\n", N*4.0*2/1024/1024/((tv2.tv_sec-tv1.tv_sec)+(tv2.tv_usec-tv1.tv_usec)/1000000);
+	return;
+	}
+	\end{lstlisting}
+	\caption{Xillybus single-thread program in C.}
+	\label{xillybus_host_program}
+\end{figure}
