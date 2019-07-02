@@ -1,25 +1,32 @@
 \section{Introduction}
 Coarse-grained overlays, implemented on top of the conventional fine-grained FPGA, represent a promising solution to the design productivity problem seen in modern FPGA design. This is because coarse-grained architectures enable faster compilation and software-like programmability, compared to the existing fine-grained FPGAs.  
 FPGA overlays can be broadly categorised as spatially configured (SC) or multiplexed. In an SC overlay, a functional unit (FU) is allocated to a single computational operation of the kernel to be accelerated, with FUs connected by a routing network which is essentially static. A multiplexed overlay, on the other hand, shares both the FUs and the interconnect across kernel operations.
-A linear time-multiplexed (TM) overlay~\cite{li2016area} has shown potential for use as an area efficient FPGA accelerator, and significant improvements to the architecture were described in~\cite{li2018time} which further improved the overlay performance.
+A linear time-multiplexed (TM) overlay~\cite{li2016area} has shown potential for use as an area efficient FPGA accelerator, and significant improvements to the architecture were described in~\cite{li2018time} which further improved the overlay performance. 
+The streaming architecture based on feed-forward pipelined datapaths allows for a simple linear interconnect of lightweight functional units, thus minimizing the interconnect requirements. 
 However, to demonstrate the suitability of the overlay as an FPGA accelerator, it is important to develop a complete accelerator system, with an interface between the processor/memory subsystems and the overlay which is able to provide high-bandwidth (and large scale) data transmission.
 An examination of existing FPGA solutions for memory interfaces, showed that most fall into one of two categories, AXI bus-based solutions for FPGA SoC systems (like in Xilinx Zynq) and PCle-based solutions for stand-alone systems connected to the host CPU. 
 Among the various frameworks, some of them abstract the interfaces with simple FIFO connections and provide streaming data transfers, which matches the requirements of our proposed linear TM overlay. 
 
-In this paper, we implement accelerator solutions for Zynq-based FPGA systems using the AXI interface and for standalone FPGA systems with PCIe connectivity, based on the Xillybus~\cite{xillybus2018} and RIFFA~\cite{jacobsen2015riffa} communication frameworks. 
+In this paper, we implement accelerator solutions for Zynq-based FPGA systems using the AXI interface and for standalone FPGA systems with PCIe connectivity, based on the Xillybus~\cite{xillybus2018}, DyRACT~\cite{vipin2014dyract}, and RIFFA~\cite{jacobsen2015riffa} communication frameworks. 
 The microarchitecture of the linear TM overlay and the framework of the proposed overlay accelerator systems are presented in detail. 
 We evaluate the performance of the proposed AXI bus-based and PCIe-based overlay accelerators for a range of benchmarks. 
 The proposed AXI bus-based accelerator is compared to a state-of-art TM overlay referred to as VectorBlox MXP~\cite{severance2013embedded}, in terms of throughput and resource usage. 
+We compare the two PCIe-based implementations, i.e. DyRACT-Overlay and RIFFA-Overlay, in terms of throughput and area utilization. 
+A detailed description of the programming model for DyRACT-Overlay is presented, which makes it very promising for practical usage.
+
+
+\begin{comment}
 The main contributions can be summarized as follows:
 
 \begin{itemize}
-	\item	
-	Examine memory interfaces for hardware accelerators implemented on FPGAs, and provide a comprehensive analysis of two of the state-of-the-art integration frameworks, i.e. Xillybus and RIFFA. 
-	
-	\item
-	Propose complete hardware accelerator systems by integrating the linear TM overlays with Xillybus and RIFFA interfaces, respectively, and evaluate the throughput and resource usage of these hardware accelerators for a range of benchmarks.
-	
-	\item
-	Make comparisons with a state-of-the-art TM overlay, namely VectorBlox MXP, which shows that the proposed overlay achieves approximately 50\% of the throughput, but uses just half of the bandwidth and less than 20\% hardware resource compared to MXP.
-	
+\item	
+Examine memory interfaces for hardware accelerators implemented on FPGAs, and provide a comprehensive analysis of two of the state-of-the-art integration frameworks, i.e. Xillybus and RIFFA. 
+
+\item
+Propose complete hardware accelerator systems by integrating the linear TM overlays with Xillybus and RIFFA interfaces, respectively, and evaluate the throughput and resource usage of these hardware accelerators for a range of benchmarks.
+
+\item
+Make comparisons with a state-of-the-art TM overlay, namely VectorBlox MXP, which shows that the proposed overlay achieves approximately 50\% of the throughput, but uses just half of the bandwidth and less than 20\% hardware resource compared to MXP.
+
 \end{itemize}
+\end{comment}
