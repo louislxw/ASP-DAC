@@ -1,23 +1,24 @@
 \section{Related Work}
-Two of the more common solutions for interfacing FPGA based hardware accelerators are AXI bus-based solutions~\cite{vipin2014zycap, sadri2013energy, xillybus2018} for FPGA SoC systems (like in Xilinx Zynq) and PCle-based solutions~\cite{xillybus2018, vipin2014dyract, gong2014efficient, de2016fflink, jacobsen2015riffa} for stand-alone systems connected to a host CPU. 
+%Two of the more common solutions for interfacing FPGA based hardware accelerators are AXI bus-based solutions~\cite{vipin2014zycap, sadri2013energy, xillybus2018} for FPGA SoC systems (like in Xilinx Zynq) and PCle-based solutions~\cite{xillybus2018, vipin2014dyract, gong2014efficient, de2016fflink, jacobsen2015riffa} for stand-alone systems connected to a host CPU. 
 
-\subsection{AXI bus-based Solutions} 
-ZyCAP~\cite{vipin2014zycap} was developed as an open source soft DMA controller for high performance partial reconfiguration on the Xilinx Zynq. 
-It provides two interfaces, an AXI-Lite interface connected to general purpose (GP) port and another AXI4 interface connected to the high performance (HP) port, and achieves a maximum throughput of 382 MB/s between the external memory and the partial reconfigurable region (PRR). 
+%Typical PCIe-based solutions for interfacing FPGA based hardware accelerators can be found from~\cite{xillybus2018, vipin2014dyract, gong2014efficient, de2016fflink, jacobsen2015riffa}. Most of them achieves high bandwidth close to theoretical maximum.  
 
-An infrastructure to evaluate the data processing bandwidth and the energy consumption between the ARM processor sub-system and the DRAM on Zynq using the AXI HP/ACP interface was developed in~\cite{sadri2013energy}.
-The implementation achieved a maximum full-duplex data processing bandwidth of over 1.6 GB/s for a single HP/ACP port, running at 125 MHz on a Zynq XC7Z020-1C device.
+\subsection{Time-Multiplexed Overlays}
 
-Xillybus~\cite{xillybus2018} is a commercial solution which provides a very simple abstraction of the AXI ACP interface for the Zynq device. 
-It is consists of a loopback demo hardware design with a full Linux distribution running on the ARM processor. 
-Xillybus can achieve a maximum data rate of around 300 MB/s running at 100 MHz on a Zynq-based ZedBoard. 
+QuickDough~\cite{liu2015quickdough} was proposed to address FPGA design productivity issues. 
+It is comprised of an array of nearest neighbor interconnected processing elements (PEs), referred to as SCGRA overlay.  
+Application specific SCGRA overlay were implemented on Zynq, achieving a speedup of up to $9\times$ compared to the same application qunning on the Zynq ARM processor. 
+The 250 MHz FU consists of an ALUm multiport data memory ($256\times$32 bits) and customizable depth instruction ROM (Supporting 72-bit instructions) resulting in significant BRAM utilization. 
+Due to the excessive usage of BRAMs, it has limited scalability as a maximum implementation of $5\times$5 array can fit on Zynq, despite of the frequency degradation caused by the tight placement and route. 
+
 
 VectorBlox MXP~\cite{severance2013embedded} is a commercial soft vector processor overlay targetting Altera or Xilinx FPGAs via the Avalon or AXI interfaces. 
 Data transfer is handled by a double-buffered vector scratchpad and a dedicated DMA engine communicating with the scalar host processor via the AXI HP port.
 MXP can operate at a maximum frequency of 110 MHz on a Xilinx XC7Z020 device with 16 vector lanes. 
 It demonstrates up to $1000\times$ speedup over MicroBlaze. 
 
-\subsection{PCIe-based Solutions} 
+
+\subsection{PCIe-based Interface Solutions} 
 Northwest Logic~\cite{nwlogic2018} and Xillybus~\cite{xillybus2018} are two representative commercial solutions which support PCIe interfaces for different generations while providing portability across different FPGA devices. 
 Northwest Logic is licensed closed source while Xillybus is provided free of charge for research and teaching purposes. 
 Xillybus users have full access to customize the complete Xillybus project, including the hardware design, the device driver and the software applications, with good documentation provided.
@@ -36,11 +37,15 @@ ffLink is based on the AXI infrastructure with Xilinx CDMA engines, limiting its
 JetStream~\cite{vesper2016jetstream} provides both FPGA-to-Host and FPGA-to-FPGA communication, and supports PCIe Gen3x8  with a peak unidirectional bandwidth of 7.05 GB/s. 
 However, poor documentation and tool compatibility issues limit its use.
 
-Table~\ref{theo_bw} shows the theoretical bandwidth of the AXI and PCIe memory interfaces. 
-Although the total theoretical bandwidth of an AXI interface is comparable to that of a PCIe interface, many of the AXI-based solutions are not able to make full use of all available high performance HP/ACP ports, while the PCIe-based counterparts can support up to 8 lanes and some of them achieve a bandwidth which is close to the theoretical maximum. 
-Among the existing implementations, Xillybus and RIFFA appear to be the most promising solutions due to their availability, ease-of-use and portability. 
-In subsequent sections we develop high performance overlay-based accelerators designs using Xillybus and RIFFA.
+%Table~\ref{theo_bw} shows the theoretical bandwidth of the AXI and PCIe memory interfaces. 
+%Although the total theoretical bandwidth of an AXI interface is comparable to that of a PCIe interface, many of the AXI-based solutions are not able to make full use of all available high performance HP/ACP ports, while the PCIe-based counterparts can support up to 8 lanes and some of them achieve a bandwidth which is close to the theoretical maximum. 
+Though TM overlays have shown great potential to impove the FPGA design productivity, few of them have been developed as full accelerator systems regardless of the existing work investivated above. 
+The PCIe-based memory interface provides a perfect bridge between the host processor and the FPGA-based accelerators, due to its high bandwidth and low latency. 
+Among the existing implementations, Xillybus, RIFFA, and DyRACT appear to be the most promising solutions due to their availability, ease-of-use and portability. 
+In subsequent sections we develop high performance overlay-based accelerators designs using these solutions and then compare their capabilities.
 
+
+\begin{comment}
 \begin{table}[tb]
 	%	\renewcommand{\arraystretch}{1.2}
 	\caption{Theoretical bandwidth of typical memory interfaces.}
@@ -63,3 +68,4 @@ In subsequent sections we develop high performance overlay-based accelerators de
 		\end{threeparttable}
 	}
 \end{table}
+\end{comment}
