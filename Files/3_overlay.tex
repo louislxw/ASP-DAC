@@ -4,8 +4,8 @@
 We have proposed to build a linear array of FUs as a time-multiplexed (TM) overlay~\cite{li2018time} where each FU can be time multiplexed among operations present in a single scheduling stage of a directed acyclic graph (DAG). 
 The 32-bit linear TM overlay is comprised of a quasi-streaming data interface made up of two FIFO channels implemented using Block RAMs, which transmit the data through daisy-chained fully pipelined time-multiplexed FUs, as shown in Figure~\ref{overlay}. 
 By eliminating the fully flexible routability of the CGRA-like overlays, the linear TM overlay can achieve a very area efficient design, representing less than 6\% of the logic and DSP resources on Zynq. 
-The initiation interval (II) can be significantly reduced with the architectural enhancements such as rotating register file and replicating the stream, which results in a peak throughput of 1.8 GOPS. 
-Adding write-back capabilities to the FU design eliminates the need to reconfigure the overlay when application kernel changes, making the overlay suitable for more general purpose applications. 
+The initiation interval (II) can be significantly reduced by making some minor architectural enhancements, such as adding a rotating register file and replicating the data stream. These changes result in a peak throughput of 1.8 GOPS. 
+Adding write-back capabilities to the FU design reduces the overlay depth requirement by allowing multiple nodes on the critical path to be combined. This also eliminates the need to reconfigure the overlay whenever the application kernel changes, making the overlay suitable for more general purpose applications. 
 
 
 \begin{figure}
@@ -47,6 +47,5 @@ Once the counter value is greater than or equal to the data load number (in the 
 The linear TM overlay has shown its advantages to implement an area efficient design with fast context switch and comparable high throughput. 
 However, to demonstrate the suitability of the overlay as an FPGA accelerator, it is important to develop a memory interface between the processor/memory subsystems and the overlay which is able to provide high-bandwidth data transmission. 
 As discussed in the previous section, two stream interfaces are required to send the instructions and the input data from the host side and receive the output data from the overlay accelerator. 
-Besides, it is necessary to set up memory arrays or registers so that the user have access to control the overlay, i.e. the instruction load, overlay setup, and data write. 
-
+Additionally, it is necessary to set up memory arrays or registers so that the user has access to control the overlay, i.e. the instruction load, overlay setup, and data write. 
 
