@@ -5,6 +5,13 @@
 
 \subsection{Time-Multiplexed Overlays}
 
+ADRES~\cite{mei2003adres} appeared to be the first integration of a very long instruction word (VLIW) processor tightly-coupled with a coarse-grained reconfigurable matrix. 
+Some of the functional units (FUs) and register files (RFs) are shared by the VLIW processor and the reconfigurable matrix. 
+Thus, there is no need to transfer the data between the processor and the reconfigurable array compared to the tranditional CGRAs. 
+Taras~\cite{taras2019impact} implemented the ADRES as overlays on Intel and Xilinx FPGAs using CGRA-ME modeling framework~\cite{chin2017cgra}. 
+The ADRES overlay can achieve up to $1.6\times$ speedup on Fmax and a reduction of 41\% LUT usage, with the FPGA architecture optimizations. 
+
+
 QuickDough~\cite{liu2015quickdough} was proposed to address FPGA design productivity issues. 
 It is comprised of an array of nearest neighbor interconnected processing elements (PEs), referred to as SCGRA overlay.  
 Application specific SCGRA overlay were implemented on Zynq, achieving a speedup of up to $9\times$ compared to the same application qunning on the Zynq ARM processor. 
@@ -13,16 +20,18 @@ Due to the excessive usage of BRAMs, it has limited scalability as a maximum imp
 
 
 VectorBlox MXP~\cite{severance2013embedded} is a commercial soft vector processor overlay targetting Altera or Xilinx FPGAs via the Avalon or AXI interfaces. 
-Data transfer is handled by a double-buffered vector scratchpad and a dedicated DMA engine communicating with the scalar host processor via the AXI HP port.
+Data transfer is handled by a double-buffered vector scratchpad and a dedicated DMA engine communicating with the scalar host processor via the AXI HP port. 
 MXP can operate at a maximum frequency of 110 MHz on a Xilinx XC7Z020 device with 16 vector lanes. 
 It demonstrates up to $1000\times$ speedup over MicroBlaze. 
+The programming model is user-friendly as it is a combination of ANSI-C and VectorBlox C extensions.  
+However, it is difficult to implement the applications which cannot be easily vectorized. 
 
 
 \subsection{PCIe-based Interface Solutions} 
 Northwest Logic~\cite{nwlogic2018} and Xillybus~\cite{xillybus2018} are two representative commercial solutions which support PCIe interfaces for different generations while providing portability across different FPGA devices. 
 Northwest Logic is licensed closed source while Xillybus is provided free of charge for research and teaching purposes. 
 Xillybus users have full access to customize the complete Xillybus project, including the hardware design, the device driver and the software applications, with good documentation provided.
-The latest version of Xillybus (Revision XL) can achieve a maximum data rate of around 3.5 GB/s for Gen2x8 and Gen3x4 PCIe interfaces.
+The latest version (Revision XL) of Xillybus  can achieve a maximum data rate of around 3.5 GB/s for Gen2x8 and Gen3x4 PCIe interfaces.
 
 In addition to these commercial solutions, there are a number of academic PCIe-based solutions, such as DyRACT~\cite{vipin2014dyract} and EPEE~\cite{gong2014efficient}.
 DyRACT mainly focuses on dynamic partial reconfiguration over the PCIe Gen2x4 interface, along with a configuration controller and clock management, while EPEE was developed as a general purpose PCIe communication library, targeting a wide range of FPGA devices. 
@@ -39,10 +48,10 @@ However, poor documentation and tool compatibility issues limit its use.
 
 %Table~\ref{theo_bw} shows the theoretical bandwidth of the AXI and PCIe memory interfaces. 
 %Although the total theoretical bandwidth of an AXI interface is comparable to that of a PCIe interface, many of the AXI-based solutions are not able to make full use of all available high performance HP/ACP ports, while the PCIe-based counterparts can support up to 8 lanes and some of them achieve a bandwidth which is close to the theoretical maximum. 
-Though TM overlays have shown great potential to impove the FPGA design productivity, few of them have been developed as full accelerator systems regardless of the existing work investivated above. 
-The PCIe-based memory interface provides a perfect bridge between the host processor and the FPGA-based accelerators, due to its high bandwidth and low latency. 
+Though TM overlays have shown great potential to impove the FPGA design productivity, few of them have been developed as full accelerator systems except for the existing work investivated above. 
+The PCIe-based memory soluctions provides a perfect bridge between the host processor and the FPGA-based accelerators, for their high bandwidth and low latency. 
 Among the existing implementations, Xillybus, RIFFA, and DyRACT appear to be the most promising solutions due to their availability, ease-of-use and portability. 
-In subsequent sections we develop high performance overlay-based accelerators designs using these solutions and then compare their capabilities.
+In subsequent sections we develop high performance overlay-based accelerators designs using these solutions and then compare their performance and area overhead.
 
 
 \begin{comment}
