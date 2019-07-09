@@ -3,7 +3,9 @@
 
 %Typical PCIe-based solutions for interfacing FPGA based hardware accelerators can be found from~\cite{xillybus2018, vipin2014dyract, gong2014efficient, de2016fflink, jacobsen2015riffa}. Most of them achieves high bandwidth close to theoretical maximum.  
 
-\subsection{Time-Multiplexed Overlays}
+\subsection{Coarse-grained TM Overlays}
+A number of overlays have been proposed which share functional units among kernel operations in an attempt to reduce overlay resource requirements~\cite{severance2013embedded, liu2015quickdough, taras2019impact}.
+This time-multiplexing of the overlay means that it can change its behavior on a cycle-by-cycle basis while the compute kernel is executing, thus allowing sharing of the limited FPGA resources.
 
 ADRES~\cite{mei2003adres} appeared to be the first integration of a very long instruction word (VLIW) processor tightly-coupled with a coarse-grained reconfigurable matrix. 
 Some of the functional units (FUs) and register files (RFs) are shared by the VLIW processor and the reconfigurable matrix. 
@@ -27,31 +29,44 @@ The programming model is user-friendly as it is a combination of ANSI-C and Vect
 However, it is difficult to implement the applications which cannot be easily vectorized. 
 
 
-\subsection{PCIe-based Interface Solutions} 
-Northwest Logic~\cite{nwlogic2018} and Xillybus~\cite{xillybus2018} are two representative commercial solutions which support PCIe interfaces for different generations while providing portability across different FPGA devices. 
-Northwest Logic is licensed closed source while Xillybus is provided free of charge for research and teaching purposes. 
-Xillybus users have full access to customize the complete Xillybus project, including the hardware design, the device driver and the software applications, with good documentation provided.
-The latest version (Revision XL) of Xillybus  can achieve a maximum data rate of around 3.5 GB/s for Gen2x8 and Gen3x4 PCIe interfaces.
+\subsection{Memory Interface Solutions} 
+Two of the more common solutions for interfacing FPGA based hardware accelerators are AXI bus-based solutions~\cite{vipin2014zycap, sadri2013energy, xillybus2018} for FPGA SoC systems (like in Xilinx Zynq) and PCle-based solutions~\cite{xillybus2018, vipin2014dyract, gong2014efficient, jacobsen2015riffa} for stand-alone systems connected to a host CPU. 
 
-In addition to these commercial solutions, there are a number of academic PCIe-based solutions, such as DyRACT~\cite{vipin2014dyract} and EPEE~\cite{gong2014efficient}.
+ZyCAP~\cite{vipin2014zycap} was developed as an open source soft DMA controller for high performance partial reconfiguration on the Xilinx Zynq. 
+It provides two interfaces, an AXI-Lite interface connected to general purpose (GP) port and another AXI4 interface connected to the high performance (HP) port, and achieves a maximum throughput of 382 MB/s between the external memory and the partial reconfigurable region (PRR). 
+
+An infrastructure to evaluate the data processing bandwidth and the energy consumption between the ARM processor sub-system and the DRAM on Zynq using the AXI HP/ACP interface was developed in~\cite{sadri2013energy}.
+The implementation achieved a maximum full-duplex data processing bandwidth of over 1.6 GB/s for a single HP/ACP port, running at 125 MHz on a Zynq XC7Z020-1C device.
+
+%Xillybus~\cite{xillybus2018} is a commercial solution which provides a very simple abstraction of the AXI ACP interface for the Zynq device. 
+%It is consists of a loopback demo hardware design with a full Linux distribution running on the ARM processor. 
+%Xillybus can achieve a maximum data rate of around 300 MB/s running at 100 MHz on a Zynq-based ZedBoard. 
+
+
+%Northwest Logic~\cite{nwlogic2018} and 
+Xillybus~\cite{xillybus2018} is a representative commercial solution which support both AXI (baseline) and PCIe (Revision XL) interfaces while providing portability across different FPGA devices. 
+%Northwest Logic is licensed closed source 
+While Xillybus is provided free of charge for research and teaching purposes, users have full access to customize the complete Xillybus project, including the hardware design, the device driver and the software applications, with good documentation provided. 
+The baseline Xillybus has a data rate of $\sim$300 MB/s running at 100 MHz on a Zynq-based ZedBoard, while a maximum data rate of $\sim$3.5 GB/s for Gen2x8 PCIe interface is achieved by Revision XL.
+
+There are a number of academic PCIe-based solutions, such as DyRACT~\cite{vipin2014dyract} and EPEE~\cite{gong2014efficient}.
 DyRACT mainly focuses on dynamic partial reconfiguration over the PCIe Gen2x4 interface, along with a configuration controller and clock management, while EPEE was developed as a general purpose PCIe communication library, targeting a wide range of FPGA devices. 
-
 RIFFA~\cite{jacobsen2015riffa} is an open source reusable framework for the integration of FPGA accelerators with workstations supporting PCIe Gen 2 and Gen3 protocols. 
 A scatter-gather DMA-based design bridges the vendor-specific PCIe Endpoint core and multiple communication channels for user defined IP cores. 
 The latest release of RIFFA (version 2.2.2) achieves a unidirectional maximum bandwidth of 3.6 GB/s for the Gen2x8 configuration on the Xilinx VC707 platform and 3.5 GB/s for the Gen3x4 configuration on the Terasic DE5-Net.
 
-Other recent solutions include ffLink~\cite{de2016fflink} and JetStream~\cite{vesper2016jetstream}. 
-ffLink is an open source PCIe Gen3x8 interface which achieves a throughput of 7.06 GB/s on a Xilinx VC709 platform. 
-ffLink is based on the AXI infrastructure with Xilinx CDMA engines, limiting its use beyond Xilinx devices. 
-JetStream~\cite{vesper2016jetstream} provides both FPGA-to-Host and FPGA-to-FPGA communication, and supports PCIe Gen3x8  with a peak unidirectional bandwidth of 7.05 GB/s. 
-However, poor documentation and tool compatibility issues limit its use.
+%Other recent solutions include ffLink~\cite{de2016fflink} and JetStream~\cite{vesper2016jetstream}. 
+%ffLink is an open source PCIe Gen3x8 interface which achieves a throughput of 7.06 GB/s on a Xilinx VC709 platform. 
+%ffLink is based on the AXI infrastructure with Xilinx CDMA engines, limiting its use beyond Xilinx devices. 
+%JetStream~\cite{vesper2016jetstream} provides both FPGA-to-Host and FPGA-to-FPGA communication, and supports PCIe Gen3x8  with a peak unidirectional bandwidth of 7.05 GB/s. 
+%However, poor documentation and tool compatibility issues limit its use.
 
 %Table~\ref{theo_bw} shows the theoretical bandwidth of the AXI and PCIe memory interfaces. 
 %Although the total theoretical bandwidth of an AXI interface is comparable to that of a PCIe interface, many of the AXI-based solutions are not able to make full use of all available high performance HP/ACP ports, while the PCIe-based counterparts can support up to 8 lanes and some of them achieve a bandwidth which is close to the theoretical maximum. 
 Though TM overlays have shown great potential to impove the FPGA design productivity, few of them have been developed as full accelerator systems except for the existing work investivated above. 
 The PCIe-based memory soluctions provides a perfect bridge between the host processor and the FPGA-based accelerators, for their high bandwidth and low latency. 
 Among the existing implementations, Xillybus, RIFFA, and DyRACT appear to be the most promising solutions due to their availability, ease-of-use and portability. 
-In subsequent sections we develop high performance overlay-based accelerators designs using these solutions and then compare their performance and area overhead.
+In subsequent sections we develop high performance overlay-based accelerators designs using these solutions and analyse the overlay capabilities with different memory interfaces.
 
 
 \begin{comment}

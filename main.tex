@@ -103,11 +103,10 @@ email address}
 \begin{abstract}
 Coarse-grained FPGA overlays have shown promising advantages such as software-like programmability and fast compilation to improve the design productivity. 
 However, few of the existing overlays have been developed as complete accelerator systems, suitable for real-world applications. 
-To address this issue, a high-performance overlay system framework is proposed, based on the PCIe memory interface. 
-We implement these hardware accelerators on a VC707 platform, and evaluate their throughput and resource usage for a range of benchmarks. 
-%The proposed AXI-Xillybus-Overlay system achieves a much more area efficient implementation in comparison with a state-of-art time-multiplexed (TM) overlay, namely VectorBlox MXP, at the cost of around 50\% of the throughput.
-%which is limited by the 32-bit AXI-ACP interface used by AXI-Xillybus compared to the full 64-bit AXI-HP interface used by VectorBlox MXP. 
-The proposed RIFFA-Overlay system shows 3.6$\times$ higher throughput than the Xillybus-Overlay, but at the expense of a larger resource usage on the BRAMs. 
+To address this issue, a high-performance overlay system framework is proposed, based on two different memory interfaces, AXI and PCIe. 
+We implement these hardware accelerators on ZedBoard (AXI-based) and VC707 (PCIe-based) platforms respectively, and evaluate their throughput and resource usage for a range of benchmarks. 
+The proposed AXI-Xillybus-Overlay system achieves a much more area efficient implementation in comparison with a state-of-art time-multiplexed (TM) overlay, referred to as VectorBlox MXP, at the cost of around 50\% of the throughput which is limited by the 32-bit AXI-ACP interface used by AXI-Xillybus compared to the full 64-bit AXI-HP interface used by VectorBlox MXP. 
+The proposed RIFFA-Overlay system shows the highest performance among all the proposed overlay accelerators (3.6$\times$ higher than PCIe-Xillybus-Overlay, and  5.7$\times$ better than AXI-Xillybus-Overlay), but at the expense of a larger resource usage on the BRAMs. 
 \end{abstract}
 
 \begin{IEEEkeywords}
