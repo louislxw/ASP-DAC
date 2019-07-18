@@ -1,49 +1,39 @@
-\lstset{%
-	% Basic design
-%	backgroundcolor=\color{lightgray},
-	basicstyle={\scriptsize\ttfamily},   
-%	frame=l,
-%	framexrightmargin = - 6 cm,
-	% Line numbers
-	xleftmargin={0.75cm},
-	numbers=left,
-	stepnumber=1,
-	firstnumber=1,
-	numberfirstline=true,
-	% Code design
-	identifierstyle=\color{black},
-	keywordstyle=\color{blue}\bfseries,
-	ndkeywordstyle=\color{greenCode}\bfseries,
-	stringstyle=\color{ocherCode}\ttfamily,
-	commentstyle=\color{blue}\ttfamily,
-	% Code
-	language={C},
-	tabsize=3,
-	showtabs=false,
-	showspaces=false,
-	showstringspaces=false,
-	extendedchars=true,
-	breaklines=true
+\lstset { %
+	language=C,
+	backgroundcolor=\color{white}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	%basicstyle=\ttfamily\tiny,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{blue}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	breaklines=true	
 }
-\begin{table}[H]
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+
+\begin{table}[!h]
 	\centering
-	\caption{Instructions for kernel `gradient'}
-	\label{instruction_gradient}	
+	\caption{Example code.}
+	\label{program}
 	\begin{tabular}{l}
-	\toprule
-	\begin{lstlisting}
-00000000_0011000000110011110_10_00010_00000_0	//SUB R2, R0
-00000000_0011000000110011110_10_00010_00001_0	//SUB R2, R1
-00000000_0011000000110011110_10_00011_00010_0	//SUB R3, R2
-00000000_0011000000110011110_10_00100_00010_0	//SUB R4, R2
-00000001_0000100010000101001_00_00000_00000_0	//SQR R0, R0
-00000001_0000100010000101001_00_00001_00001_0	//SQR R1, R1
-00000001_0000100010000101001_00_00010_00010_0	//SQR R2, R2
-00000001_0000100010000101001_00_00011_00011_0	//SQR R3, R3
-00000010_0000000000110011110_10_00000_00001_0	//ADD R0, R1
-00000010_0000000000110011110_10_00010_00011_0	//ADD R2, R3
-00000011_0000000000110011110_10_00000_00001_0	//ADD R0, R1
-	\end{lstlisting}
-	\\ \bottomrule	
-\end{tabular}
-\end{table} 
+		%    \toprule
+		%		\multicolumn{1}{c}{(a) C description}  &\multicolumn{1}{c}{(b) DFG description} \\ % Assembly with Loopback Optimization
+		%    \midrule
+		%    \hspace{-0.2in}
+		%    \hspace{-0.2in}
+		\begin{lstlisting}
+fpga_reg_wr(0x30,0x0); //Tag of FU0 
+fpga_reg_wr(0x34,0x3033D080); // Instruction 0
+		
+fpga_reg_wr(0x30,0x1); //Tag of FU1
+fpga_reg_wr(0x34,0x8852000); // Instruction 1
+		
+fpga_reg_wr(0x38,5); // No. of input data
+fpga_reg_wr(0x38,5); // (II-1)
+		
+dyract_send_data((unsigned char *)mydata, sendSize*sizeof(int)); //Send data
+dyract_recv_data((unsigned char *) recvdata, recvSize*sizeof(4)); //Receive data
+		\end{lstlisting}\\
+		%    \bottomrule
+	\end{tabular}
+\end{table}
