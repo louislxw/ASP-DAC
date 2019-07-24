@@ -1,7 +1,7 @@
 \section{Experimental Evaluations}
 We conducted experiments for both the AXI bus-based and PCIe-based overlay accelerators.  
 For the AXI bus-based system, the experimental software runs on the ARM processor of the Xilinx ZedBoard. 
-For the PCIe-based accelerators (implemented using both PCIe-Xillybus and RIFFA), the experiments are run on an HP Z420 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
+For the PCIe-based accelerators (implemented using PCIe-Xillybus, RIFFA and DyRACT respectively), the experiments are run on an HP Z420 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
 
 \subsection{AXI-Xillybus System}
 The AXI-Xillybus system is using one 32-bit wide AXI ACP port for data transmission, running at a frequency of 100 MHz. 
@@ -37,9 +37,9 @@ Both AXI-Xillybus-Overlay and MXP are running on Xillinux-2.0, which is the late
 	\resizebox{\columnwidth}{!}{
 	\begin{tabular}{clccccc}
 		\toprule
-		& Benchmark &  \multicolumn{5}{c}{Characteristics}  \\ \cline{3-7}
+		    & Benchmark &  \multicolumn{5}{c}{Characteristics}  \\ \cline{3-7}
 		No. & Name      &  I/O  & graph &  op   & graph & graph \\
-		&           & nodes & edges & nodes & depth & width \\ \midrule
+		    &           & nodes & edges & nodes & depth & width \\ \midrule
 		1.  & chebyshev &  1/1  &  12   &   7   &   7   &   1   \\
 		2.  & mibench   &  3/1  &  22   &  13   &   6   &   3   \\
 		3.  & qspline   &  7/1  &  50   &  25   &   8   &   6   \\
@@ -74,11 +74,11 @@ The throughput of AXI-Xillybus is about half of that of MXP-V16, mainly due to A
 	\resizebox{\columnwidth}{!}{
 	\begin{tabular}{lrrrr}
 		\toprule
-		System             &                \multicolumn{4}{c}{Resource Usage}                \\ \cline{2-5}
-		                   &            LUTs &              FFs &        BRAMs &         DSPs \\ \midrule
-		AXI-Xillybus-Overlay    &           5,747 &            5,798 &            5 &            8 \\
-		MXP-V16            &          28,974 &           22,174 &           66 &          112 \\
-		\textbf{Available} & \textbf{53,200} & \textbf{106,400} & \textbf{140} & \textbf{220} \\ \bottomrule
+		System               &                \multicolumn{4}{c}{Resource Usage}                \\ \cline{2-5}
+		                     &            LUTs &              FFs &        BRAMs &         DSPs \\ \midrule
+		AXI-Xillybus-Overlay &           5,747 &            5,798 &            5 &            8 \\
+		MXP-V16              &          28,974 &           22,174 &           66 &          112 \\
+		\textbf{Available}   & \textbf{53,200} & \textbf{106,400} & \textbf{140} & \textbf{220} \\ \bottomrule
 	\end{tabular}
 	}
 \end{table}
@@ -151,11 +151,12 @@ Developing a full-duplex RIFFA based system would minimize the BRAM resource usa
 	\resizebox{\columnwidth}{!}{
 	\begin{tabular}{lrrrr}
 		\toprule
-		System             &                  \multicolumn{4}{c}{Resource Usage}                   \\ \cline{2-5}
-		                   &             LUTs &              FFs &          BRAMs &           DSPs \\ \midrule
-		PCIe-Xillybus-Overlay   &           16,027 &           12,488 &           14.5 &             32 \\
-		RIFFA-Overlay           &           13,657 &           18,581 &          289.5 &             32 \\
-		\textbf{Available} & \textbf{303,600} & \textbf{607,200} & \textbf{1,030} & \textbf{2,800} \\ \bottomrule
+		System                &                  \multicolumn{4}{c}{Resource Usage}                   \\ \cline{2-5}
+		                      &             LUTs &              FFs &          BRAMs &           DSPs \\ \midrule
+		PCIe-Xillybus-Overlay &           16,027 &           12,488 &           14.5 &             32 \\
+		RIFFA-Overlay         &           13,657 &           18,581 &          289.5 &             32 \\
+		DyRACT-Overlay        &           17,344 &           16,464 &             10 &             32 \\
+		\textbf{Available}    & \textbf{303,600} & \textbf{607,200} & \textbf{1,030} & \textbf{2,800} \\ \bottomrule
 	\end{tabular}
 	}
 \end{table}

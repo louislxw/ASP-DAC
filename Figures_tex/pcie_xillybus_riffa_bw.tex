@@ -16,14 +16,14 @@
 \begin{figure}[tb]
 	\centering
 	\pgfplotstableread{
-		0		677		1448	386.9		828
-		1		381		1469	351.5		1355
-		2		312		1250	349.5		1400
-		3		155		582		372			1396
-		4		127		494		353.4		1375
-		5		83		321		354			1369
-		6		76		300		347.3		1370
-		7		82		310		351.3		1328
+		0		677		1448	2081	386.9		828		1190
+		1		381		1469	1680	351.5		1355	 1550
+		2		312		1250	1657	349.5		1400	1856
+		3		155		582		0		  372			1396	0
+		4		127		494		578		353.4		1375	 1610
+		5		83		321		 308	354			1369	  1312
+		6		76		300		328		347.3		1370	 1496
+		7		82		310		 0		  351.3			1328	0
 	}\datathroughput	
 	\subfigure[Data processing throughput in MB/s]{
 		\begin{tikzpicture}[scale = 0.9]
@@ -35,7 +35,7 @@
 		x = 0.85cm,
 		height=5.3cm,
 		ymin=0,
-		ymax=2500,        
+		ymax=3000,        
 		ylabel={MB/s},
 		grid style={dotted,gray},
 		ymajorgrids=true,
@@ -63,12 +63,13 @@
 		%	},
 		]
 		
-		\addplot[draw=black,fill=blue, draw opacity=1] table[x index=0,y index=3] \datathroughput;\label{MB_xillybus_pcie}
-		\addplot[draw=black,fill=red, draw opacity=1] table[x index=0,y index=4]   \datathroughput;\label{MB_riffa} 					
+		\addplot[draw=black,fill=blue, draw opacity=1] table[x index=0,y index=4] \datathroughput;\label{MB_xillybus_pcie}
+		\addplot[draw=black,fill=red, draw opacity=1] table[x index=0,y index=5]   \datathroughput;\label{MB_riffa} 
+		\addplot[draw=black,fill=green, draw opacity=1] table[x index=0,y index=6]   \datathroughput;\label{MB_dyract} 						
 		\end{axis}
 		
-		\node [draw=none, fill=white] at (rel axis cs: 0.45, 0.8) {\shortstack[l]{
-				\ref{MB_xillybus_pcie} PCIe-Xillybus-Overlay \\ \ref{MB_riffa} RIFFA-Overlay }};	
+		\node [draw=none, fill=white, font=\small] at (rel axis cs: 0.6, 0.8) {\shortstack[l]{
+				\ref{MB_xillybus_pcie} PCIe-Xillybus-Overlay  \ref{MB_riffa} RIFFA-Overlay \\ \ref{MB_dyract} DyRACT-Overlay }};	
 		\end{tikzpicture}
 	}
 
@@ -82,7 +83,7 @@
 		x = 0.85cm,
 		height=5.3cm,
 		ymin=0,
-		ymax=2500,        
+		ymax=3300,        
 		ylabel={MOPS},
 		grid style={dotted,gray},
 		ymajorgrids=true,
@@ -111,11 +112,12 @@
 		]
 		
 		\addplot[draw=black,fill=blue, draw opacity=1] table[x index=0,y index=1] \datathroughput;\label{MOPS_xillybus_pcie}
-		\addplot[draw=black,fill=red, draw opacity=1] table[x index=0,y index=2]   \datathroughput;\label{MOPS_riffa} 					
+		\addplot[draw=black,fill=red, draw opacity=1] table[x index=0,y index=2]   \datathroughput;\label{MOPS_riffa} 	
+		\addplot[draw=black,fill=green, draw opacity=1] table[x index=0,y index=3]   \datathroughput;\label{MOPS_dyract} 					
 		\end{axis}
 		
-		\node [draw=none, fill=white] at (rel axis cs: 0.45, 0.8) {\shortstack[l]{
-				\ref{MOPS_xillybus_pcie} PCIe-Xillybus-Overlay \\ \ref{MOPS_riffa} RIFFA-Overlay }};	
+		\node [draw=none, fill=white, font=\small] at (rel axis cs: 0.6, 0.8) {\shortstack[l]{
+				\ref{MOPS_xillybus_pcie} PCIe-Xillybus-Overlay  \ref{MOPS_riffa} RIFFA-Overlay \\ \ref{MOPS_dyract} DyRACT-Overlay }};	
 		\end{tikzpicture}
 	}
 	
