@@ -1,0 +1,16 @@
+\begin{table*}
+	\renewcommand{\arraystretch}{1.2}
+	\caption{Instruction format.}
+	\label{instruction}
+	\scriptsize
+	\centering
+	\resizebox{\textwidth}{!}{	
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			FU part          &                         \multicolumn{8}{c|}{ALU Control}                         & \multicolumn{2}{c|}{Input Map Control} & \multicolumn{2}{c|}{RF Control} & Reserved \\ \hline
+			Signals          & \textit{NDF} & \textit{WB} & alumode & inmode  & opmode  & cea2 & ceb2 & usemult & split &             immop              &  src1  &          src2          &          \\ \hline
+			No. of bits        &      1       &      1      &    4    &    2    &    7    &  1   &  1   &    1    &   1   &               1                &   5    &           5            &    2     \\ \hline
+			Locations         &     [30]     &    [29]     & [28:25] & [24:23] & [22:16] &  15  &  14  &   13    &  12   &               11               & [10:6] &         [5:1]          & [31][0]  \\ \hline
+			ADD R3, R5 (\textit{WB}) &      0       &      1      &  0000   &   00    & 0110011 &  1   &  1   &    0    &   1   &               0                & 00011  &         00101          &   0 0    \\ \hline
+	\end{tabular}}
+\end{table*}

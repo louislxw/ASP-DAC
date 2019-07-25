@@ -94,4 +94,12 @@ Another register file (0x38) is used to store the number of data words to be inp
 Afterwards, a bunch of user-defined data can be transferred to the FPGA, and will be send back to the host PC after the processing of the overlay. 
 A snippet example code shows how to load the instructions, setup the overlay, and write the data to the FPGA can be found in Table~\ref{program}. 
 
-\input{Tables/kernel_instruction}
+\input{Tables/example_code}
+
+The 32-bit instructions are written in hexadecimal style in Table~\ref{program}, which are used as configurations for the DSP-based FUs. 
+A description of the instruction format, using \textit{ADD R3, R5 (WB)} operation as an example, is shown in Table~\ref{instruction}. 
+From this table, it can be seen that a 32-bit instruction has four sections, the 18-bit ALU control, the 2-bit input map multiplexing, two 5-bit source operand addresses, with the remaining 2-bit reserved for future use. 
+%At the end of the FU context write cycle, each FU contains the instructions that it needs to execute (in the IM) and the number of instructions that it needs to execute (in the IC register). 
+
+\input{Tables/instruction}
+
