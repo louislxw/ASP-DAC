@@ -7,6 +7,7 @@
 A number of overlays have been proposed which share functional units among kernel operations in an attempt to reduce overlay resource requirements~\cite{severance2013embedded, liu2015quickdough, taras2019impact}.
 This time-multiplexing of the overlay means that it can change its behavior on a cycle-by-cycle basis while the compute kernel is executing, thus allowing sharing of the limited FPGA resources.
 
+
 ADRES~\cite{mei2003adres} appeared to be the first integration of a very long instruction word (VLIW) processor tightly-coupled with a coarse-grained reconfigurable matrix. 
 Some of the functional units (FUs) and register files (RFs) are shared by the VLIW processor and the reconfigurable matrix. 
 Thus, there is no need to transfer the data between the processor and the reconfigurable array compared to the tranditional CGRAs. 
@@ -61,21 +62,24 @@ The latest release of RIFFA (version 2.2.2) achieves a unidirectional maximum ba
 %JetStream~\cite{vesper2016jetstream} provides both FPGA-to-Host and FPGA-to-FPGA communication, and supports PCIe Gen3x8  with a peak unidirectional bandwidth of 7.05 GB/s. 
 %However, poor documentation and tool compatibility issues limit its use.
 
-%Table~\ref{theo_bw} shows the theoretical bandwidth of the AXI and PCIe memory interfaces. 
-%Although the total theoretical bandwidth of an AXI interface is comparable to that of a PCIe interface, many of the AXI-based solutions are not able to make full use of all available high performance HP/ACP ports, while the PCIe-based counterparts can support up to 8 lanes and some of them achieve a bandwidth which is close to the theoretical maximum. 
+
 Though TM overlays have shown great potential to impove the FPGA design productivity, few of them have been developed as full accelerator systems except for the existing work investivated above. 
-The PCIe-based memory soluctions provides a perfect bridge between the host processor and the FPGA-based accelerators, for their high bandwidth and low latency. 
-Among the existing implementations, Xillybus, RIFFA, and DyRACT appear to be the most promising solutions due to their availability, ease-of-use and portability. 
+%The PCIe-based memory soluctions provides a perfect bridge between the host processor and the FPGA-based accelerators, for their high bandwidth and low latency. 
+Most of the FPGA-based SoC designs are using AXI interface as the bridge between the embeded ARM processor and the programmable logics. 
+However, PCIe interface plays a more important role when high-demand data transmission with low latency is the highest priority. 
+Table~\ref{theo_bw} shows the theoretical bandwidth of the AXI and PCIe memory interfaces. 
+Although the total theoretical bandwidth of an AXI interface is comparable to that of a PCIe interface, many of the AXI bus-based solutions are not able to make full use of all available high performance HP/ACP ports, while the PCIe-based counterparts can support up to 8 lanes and some of them achieve a bandwidth which is close to the theoretical maximum. 
+Among the existing implementations, Xillybus, RIFFA and DyRACT appear to be the most promising solutions due to their availability, ease-of-use and portability. 
 In subsequent sections we develop high performance overlay-based accelerators designs using these solutions and analyse the overlay capabilities with different memory interfaces.
 
 
-\begin{comment}
-\begin{table}[tb]
+%\begin{comment}
+\begin{table}
 	%	\renewcommand{\arraystretch}{1.2}
 	\caption{Theoretical bandwidth of typical memory interfaces.}
 	\label{theo_bw}
 	\centering
-%	\small
+	%	\small
 	\resizebox{\columnwidth}{!}{
 		\begin{threeparttable}
 			\begin{tabular}{lrrrcr}
@@ -92,4 +96,4 @@ In subsequent sections we develop high performance overlay-based accelerators de
 		\end{threeparttable}
 	}
 \end{table}
-\end{comment}
+%\end{comment}
