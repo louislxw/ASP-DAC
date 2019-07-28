@@ -5,8 +5,8 @@ AXI-Xillybus has only half the theoretical bandwidth of MXP, as Xillybus uses ju
 If Xillybus were modified to use a 64-bit ACP port and two parallel V3 overlays were implemented, it would achieve a throughput close to MXP-V16, but with significantly fewer hardware resources (approximately 20\% of the LUTS and 8\% of the hard macros (BRAM and DSP) required by MXP on Zynq.
 Thus, the linear TM overlay represents a relatively efficient implementation when FPGA resources are limited, as would be the case when an accelerator was used with other major subsystems in an FPGA based SoC design.
 
-The PCIe-Xillybus-Overlay and RIFFA-Overlay were also proposed for more high-performance centric accelerator systems. 
-The RIFFA-Overlay has a 3.6$\times$ speed improvement when compared to the PCIe-Xillybus-Overlay, and a 5.7$\times$ better throughput than the AXI-Xillybus-Overlay, achieving a throughput of 1300 MB/s on average. 
-The RIFFA-Overlay appears to be the most promising overlay accelerator for high computing purposes, however, there is a need to develop a full-duplex system, which will not only reduce the BRAM utilization, but will also double the theoretical throughput.
+The PCIe-Xillybus-Overlay, RIFFA-Overlay and DyRACT-Overlay were also proposed for more high-performance centric accelerator systems. 
+The DyRACT-Overlay has a 4.3$\times$ speed improvement when compared to the PCIe-Xillybus-Overlay, and a 6.8$\times$ better throughput than the AXI-Xillybus-Overlay, achieving a throughput of 1540 MB/s on average. 
+Both DyRACT-Overlay and RIFFA-Overlay appear to be promising overlay accelerator for high computing purposes, however, there is a need to develop a full-duplex system for RIFFA-Overlay, which will not only reduce its BRAM utilization, but also potentially improve the throughput with parallel programming method. 
 
 We open source the DyRACT-Overlay framework for future research and it can be downloaded from https://github.com/louislxw/linear\_tm\_overlay. 

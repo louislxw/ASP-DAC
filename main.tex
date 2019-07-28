@@ -52,87 +52,87 @@
 % % % Packages Add by Louis % % % 
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
-	
-	\title{A High-Performance FPGA Accelerator Framework \\for Linear Time-Multiplexed Overlays\\
-		%{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-		%should not be used}
-		%\thanks{Identify applicable funding agency here. If none, delete this.}
-	}
-	
-	\begin{comment}
-	\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-	\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-	\textit{name of organization (of Aff.)}\\
-	City, Country \\
-	email address}
-	\and
-	\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-	\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-	\textit{name of organization (of Aff.)}\\
-	City, Country \\
-	email address}
-	\and
-	\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-	\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-	\textit{name of organization (of Aff.)}\\
-	City, Country \\
-	email address}
-	\and
-	\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
-	\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-	\textit{name of organization (of Aff.)}\\
-	City, Country \\
-	email address}
-	\and
-	\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
-	\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-	\textit{name of organization (of Aff.)}\\
-	City, Country \\
-	email address}
-	\and
-	\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
-	\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-	\textit{name of organization (of Aff.)}\\
-	City, Country \\
-	email address}
-	}
-	\end{comment}
-	
-	\maketitle
-	
-	\begin{abstract}
-		Coarse-grained FPGA overlays have shown promising advantages such as software-like programmability and fast compilation to improve the design productivity. 
-		However, few of the existing overlays have been developed as complete accelerator systems, suitable for real-world applications. 
-		To address this issue, a high-performance overlay system framework is proposed, based on two different memory interfaces, AXI and PCIe. 
-		We implement these hardware accelerators on ZedBoard (AXI-based) and VC707 (PCIe-based) platforms respectively, and evaluate their throughput and resource usage for a range of benchmarks. 
-		The proposed AXI-Xillybus-Overlay system achieves a much more area efficient implementation in comparison with a state-of-art time-multiplexed (TM) overlay, referred to as VectorBlox MXP, at the cost of around 50\% of the throughput which is limited by the 32-bit AXI-ACP interface used by AXI-Xillybus compared to the full 64-bit AXI-HP interface used by VectorBlox MXP. 
-		The proposed RIFFA-Overlay system shows the highest performance among all the proposed overlay accelerators (3.6$\times$ higher than PCIe-Xillybus-Overlay, and  5.7$\times$ better than AXI-Xillybus-Overlay), but at the expense of a larger resource usage on the BRAMs. 
-	\end{abstract}
-	
-	\begin{IEEEkeywords}
-		FPGA overlay, memory interface, framework
-	\end{IEEEkeywords}
-	
-	\input{Files/1_introduction}
-	\input{Files/2_related_work}
-	\input{Files/3_overlay}
-	\input{Files/4_system}
-	\input{Files/5_experiments}
-	%\input{Files/6_discussion}
-	\input{Files/7_conclusion}
-	
-	\section*{Acknowledgment}
-	
-	This work is supported by the Singapore Ministry of Education (MOE) Academic Research Fund Tier 2 under grant MOE2017-T2-1-002.
-	
-	\def\IEEEbibitemsep{1pt plus 1pt}
-	%\footnotesize
-	%\scriptsize
-	\bibliographystyle{abbrv}
-	% argument is your BibTeX string definitions and bibliography database(s)
-	\bibliography{Files/references}
-	
-	
+
+\title{A High-Performance FPGA Accelerator Framework \\for Linear Time-Multiplexed Overlays\\
+%{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+%should not be used}
+%\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\begin{comment}
+\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address}
+\and
+\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address}
+}
+\end{comment}
+
+\maketitle
+
+\begin{abstract}
+Coarse-grained FPGA overlays have shown promising advantages such as software-like programmability and fast compilation to improve the design productivity. 
+However, few of the existing overlays have been developed as complete accelerator systems, suitable for real-world applications. 
+To address this issue, a high-performance overlay system framework is proposed, based on two different memory interfaces, AXI and PCIe. 
+We implement these hardware accelerators on ZedBoard (AXI-based) and VC707 (PCIe-based) platforms respectively, and evaluate their throughput and resource usage for a range of benchmarks. 
+The proposed AXI-Xillybus-Overlay system achieves a much more area efficient implementation in comparison with a state-of-art time-multiplexed (TM) overlay, referred to as VectorBlox MXP, at the cost of around 50\% of the throughput which is limited by the 32-bit AXI-ACP interface used by AXI-Xillybus compared to the full 64-bit AXI-HP interface used by VectorBlox MXP. 
+The proposed DyRACT-Overlay system shows the highest performance among all the proposed overlay accelerators (18\% higher than RIFFA-Overlay, 4.3$\times$ higher than PCIe-Xillybus-Overlay, and 6.8$\times$ better than AXI-Xillybus-Overlay). 
+\end{abstract}
+
+\begin{IEEEkeywords}
+FPGA overlay, memory interface, framework
+\end{IEEEkeywords}
+
+\input{Files/1_introduction}
+\input{Files/2_related_work}
+\input{Files/3_overlay}
+\input{Files/4_system}
+\input{Files/5_experiments}
+%\input{Files/6_discussion}
+\input{Files/7_conclusion}
+
+\section*{Acknowledgment}
+
+This work is supported by the Singapore Ministry of Education (MOE) Academic Research Fund Tier 2 under grant MOE2017-T2-1-002.
+
+\def\IEEEbibitemsep{1pt plus 1pt}
+%\footnotesize
+%\scriptsize
+\bibliographystyle{abbrv}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{Files/references}
+
+
 \end{document}

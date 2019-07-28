@@ -16,20 +16,20 @@
 \begin{figure}[tb]
 	\centering
 	\pgfplotstableread{
-		0		677		1448	2081	386.9		828		1190
+		0		677		1448	2081	386.9		828		 1190
 		1		381		1469	1680	351.5		1355	 1550
-		2		312		1250	1657	349.5		1400	1856
-		3		155		582		0		  372			1396	0
+		2		312		1250	1657	349.5		1400	 1856
+		3		155		582		683		372			1396	 1640
 		4		127		494		578		353.4		1375	 1610
-		5		83		321		 308	354			1369	  1312
+		5		83		321		324		354			1369	 1383
 		6		76		300		328		347.3		1370	 1496
-		7		82		310		 0		  351.3			1328	0
+		7		82		310		370		351.3		1328	 1587
 	}\datathroughput	
 	\subfigure[Data processing throughput in MB/s]{
 		\begin{tikzpicture}[scale = 0.9]
 		\centering
 		\begin{axis}[
-%		axis y line=left,
+		%		axis y line=left,
 		ybar=0pt,
 		width=17cm,
 		x = 0.85cm,
@@ -72,12 +72,12 @@
 				\ref{MB_xillybus_pcie} PCIe-Xillybus-Overlay  \ref{MB_riffa} RIFFA-Overlay \\ \ref{MB_dyract} DyRACT-Overlay }};	
 		\end{tikzpicture}
 	}
-
+	
 	\subfigure[Throughput in MOPS]{
 		\begin{tikzpicture}[scale = 0.9]
 		\centering
 		\begin{axis}[
-%		axis y line=right,
+		%		axis y line=right,
 		ybar=0pt,
 		width=17cm,
 		x = 0.85cm,
