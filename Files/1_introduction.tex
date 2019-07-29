@@ -10,25 +10,25 @@ Among the various frameworks, some of them abstract the interfaces with simple F
 In this paper, we implement accelerator solutions for Zynq-based FPGA systems using the AXI interface and for standalone FPGA systems with PCIe connectivity, based on the Xillybus~\cite{xillybus2018}, RIFFA~\cite{jacobsen2015riffa} and DyRACT~\cite{vipin2014dyract} communication frameworks. 
 The architecture of the linear TM overlay and the its essential control circuit are presented in detail. 
 We examine the compulsary components for a full working implementation and propose our framework of overlay accelerator integrated with a memory subsystem. 
-A detailed description of the programming model for DyRACT-Overlay is presented, which makes it very promising for practical usage.
+A detailed description of the programming model for Overlay interfacing with DyRACT is presented, which makes it very promising for practical usage.
 We evaluate the performance of the proposed AXI bus-based and PCIe-based overlay accelerators for a range of benchmarks. 
 The proposed AXI bus-based accelerator is compared to a state-of-art TM overlay referred to as VectorBlox MXP~\cite{severance2013embedded}, in terms of throughput and resource usage. 
 We compare the PCIe-based implementations, i.e. PCIe-Xillybus-Overlay, RIFFA-Overlay and DyRACT-Overlay, in terms of throughput and area utilization. 
-The DyRACT-Overlay framework is open-source for future research and it is available at https://github.com/louislxw/linear\_tm\_overlay. 
+%The DyRACT-Overlay framework is open-source for future research and it is available at https://github.com/louislxw/linear\_tm\_overlay. 
 
 
 \begin{comment}
 The main contributions can be summarized as follows:
 
 \begin{itemize}
-\item	
-Examine memory interfaces for hardware accelerators implemented on FPGAs, and provide a comprehensive analysis of two of the state-of-the-art integration frameworks, i.e. Xillybus and RIFFA. 
-
-\item
-Propose complete hardware accelerator systems by integrating the linear TM overlays with Xillybus and RIFFA interfaces, respectively, and evaluate the throughput and resource usage of these hardware accelerators for a range of benchmarks.
-
-\item
-Make comparisons with a state-of-the-art TM overlay, namely VectorBlox MXP, which shows that the proposed overlay achieves approximately 50\% of the throughput, but uses just half of the bandwidth and less than 20\% hardware resource compared to MXP.
-
+	\item	
+	Examine memory interfaces for hardware accelerators implemented on FPGAs, and provide a comprehensive analysis of two of the state-of-the-art integration frameworks, i.e. Xillybus and RIFFA. 
+	
+	\item
+	Propose complete hardware accelerator systems by integrating the linear TM overlays with Xillybus and RIFFA interfaces, respectively, and evaluate the throughput and resource usage of these hardware accelerators for a range of benchmarks.
+	
+	\item
+	Make comparisons with a state-of-the-art TM overlay, namely VectorBlox MXP, which shows that the proposed overlay achieves approximately 50\% of the throughput, but uses just half of the bandwidth and less than 20\% hardware resource compared to MXP.
+	
 \end{itemize}
 \end{comment}

@@ -1,5 +1,5 @@
 \section{Overlay Accelerator Framework}
-A block diagram of the proposed overlay accelerator system, based on an array of linear TM overlays~\cite{li2018time}, which supports both Zynq-based SoC and standalone PCIe accelerators, is shown in Figure~\ref{system}. 
+A block diagram of the proposed overlay accelerator system, based on an array of linear TM overlays as described in the previous section, which supports both Zynq-based SoC and standalone PCIe accelerators, is shown in Figure~\ref{system}. 
 The FPGA memory subsystem provides the interface between the overlay on the FPGA fabric and the ARM processor on a Zynq SoC via the AXI bus (or directly to the memory via the PCIe link). 
 For the AXI bus-based overlay, two 32-bit FIFOs are used to connect a single 32-bit linear TM overlay with the memory subsystem. 
 %For the PCIe-based overlay, four 32-bit linear TM overlays are used to make full use of the 128-bit data bandwidth and thus reduce the II to a quarter of that of a single overlay. 
@@ -32,7 +32,7 @@ Data transfers between the internal memory subsystem, the DDR SDRAM and the offc
 %\end{figure}
 
 
-\subsection{Xillybus-Overlay}
+\subsection{Interfacing with Xillybus}
 Xillybus is a portable, easy to use DMA-based data transfer solution which provides a simple abstraction of the AXI/PCIe interfaces. 
 %There is no prerequisite for knowledge of the AXI or PCIe protocols as all the low-level design is packaged into an IP core. 
 One side of the Xillybus IP core is connected to the host processor, while the other side communicates with one standard FIFO, providing six signals to control the data flow. 
@@ -52,7 +52,7 @@ When connecting Xillybus to the linear TM overlay, two standard FIFOs need be us
 %\end{figure}
 
 
-\subsection{RIFFA-Overlay}
+\subsection{Interfacing with RIFFA}
 RIFFA has a more complicated framework which generally consists of three layers. 
 %, as shown in Figure~\ref{riffa}. 
 %It can be visually divided into two part, one part containing the device driver and the software APIs in the PC while the other one including all the PCIe hardware interface design in the FPGA. 
@@ -75,7 +75,7 @@ that the standard FIFOs are replaced with first word fall through (FWFT) FIFOs t
 %\end{figure}
 
 
-\subsection{DyRACT-Overlay}
+\subsection{Interfacing with DyRACT}
 The original version of DyRACT communication infrastructure enables PCIe-based high-speed communication between a host computer and FPGA-based user logic with support for partial reconfiguration (PR). 
 It provisions multiple AXI4-stream backend interface, enabling seamless integration with vendor-supported IP cores. 
 We have modified the original version to make it lite-weight and tailored to support the proposed overlay architecture. 
@@ -85,14 +85,18 @@ A new AXI-Lite interface is added to support command-data interface between the 
 The software architecture follows similar structure of that of RIFFA. 
 The low-level communication protocols and interrupts are managed by the driver and the user library provides APIs for integration with application programmes. 
 
+
 \subsection{Programming Model}
-A user-friendly programming model is developed for the overlay accelerator. 
-Once the overlay bitstream has been generated and downloaded into the FPGA, users have access to send the instructions and streaming data from the host PC to the FPGA using dedicated APIs. 
-Take DyRACT-Overlay as an example, there are three register files developed for overlay control purpose. 
+%%%Emphasizing the importance of DyRACT%%%
+While Xillybus and RIFFA provide RTL design along with the driver support and software code demos, they generally do not have direct access to the FPGA RAMs (Xillybus AXI version has limited access to the registers). 
+In comparison, DyRACT offers simple register access via the AXI-Lite interface. 
+Thus,  user can easily send the instructions and streaming data from the host PC to the FPGA at runtime using dedicated APIs, instead of reconfiguring the overlay. 
+A user-friendly programming model is proposed for the linear TM overlay integrated with DyRACT system. 
+There are three register files developed for overlay control purpose. 
 One register file (0x30) is written with a 4-bit tag, which is followed by a register file (0x34) to restore the instruction with its corresponding FU. 
 Another register file (0x38) is used to store the number of data words to be input to the first FU for a specific comptuter kernel (based on the instructions) and the value of (II-1), when the instruction load has been done. 
-Afterwards, a bunch of user-defined data can be transferred to the FPGA, and will be send back to the host PC after the processing of the overlay. 
-A snippet example code shows how to load the instructions, setup the overlay, and write the data to the FPGA can be found in Table~\ref{program}. 
+Afterwards, a bunch of user-defined data can be transferred to the FPGA, and will be sent back to the host PC after the processing of the overlay. 
+A snippet example code shows how to load the instructions, setup the overlay, and write the data to the FPGA is presented in Table~\ref{program}. 
 
 \input{Tables/example_code}
 

@@ -1,4 +1,4 @@
-\section{Experimental Evaluations}
+\section{Experimental Setup}
 We conducted experiments for both the AXI bus-based and PCIe-based overlay accelerators.  
 For the AXI bus-based system, the experimental software runs on the ARM processor of the Xilinx ZedBoard. 
 For the PCIe-based accelerators (implemented using PCIe-Xillybus, RIFFA and DyRACT respectively), the experiments are run on an HP Z420 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
@@ -30,25 +30,25 @@ The performance of the proposed single DSP V3 overlay~\cite{li2018time} based ac
 Both AXI-Xillybus-Overlay and MXP are running on Xillinux-2.0, which is the latest Linux distribution released for ZedBoard (kernel 4.4), with AXI-Xillybus using the Pthread multi-threading technique with a data block transfer size of 1M words.
 
 \begin{table}[tb]
-	%	\renewcommand{\arraystretch}{1.2}
+%	\renewcommand{\arraystretch}{1.2}
 	\caption{DFG characteristics of benchmark set.}
 	\label{benchmarks_system}
 	\centering
 	\resizebox{\columnwidth}{!}{
-		\begin{tabular}{clccccc}
-			\toprule
-			& Benchmark &  \multicolumn{5}{c}{Characteristics}  \\ \cline{3-7}
-			No. & Name      &  I/O  & graph &  op   & graph & graph \\
-			&           & nodes & edges & nodes & depth & width \\ \midrule
-			1.  & chebyshev &  1/1  &  12   &   7   &   7   &   1   \\
-			2.  & mibench   &  3/1  &  22   &  13   &   6   &   3   \\
-			3.  & qspline   &  7/1  &  50   &  25   &   8   &   6   \\
-			4.  & fft       &  6/4  &  24   &  10   &   3   &   4   \\
-			5.  & kmeans    & 16/1  &  39   &  23   &   5   &   8   \\
-			6.  & mm        & 16/1  &  31   &  15   &   4   &   8   \\
-			7.  & spmv      & 16/2  &  30   &  14   &   4   &   8   \\
-			8.  & stencil   & 15/2  &  30   &  14   &   5   &   6   \\ \bottomrule
-		\end{tabular}
+	\begin{tabular}{clccccc}
+		\toprule
+		    & Benchmark &  \multicolumn{5}{c}{Characteristics}  \\ \cline{3-7}
+		No. & Name      &  I/O  & graph &  op   & graph & graph \\
+		    &           & nodes & edges & nodes & depth & width \\ \midrule
+		1.  & chebyshev &  1/1  &  12   &   7   &   7   &   1   \\
+		2.  & mibench   &  3/1  &  22   &  13   &   6   &   3   \\
+		3.  & qspline   &  7/1  &  50   &  25   &   8   &   6   \\
+		4.  & fft       &  6/4  &  24   &  10   &   3   &   4   \\
+		5.  & kmeans    & 16/1  &  39   &  23   &   5   &   8   \\
+		6.  & mm        & 16/1  &  31   &  15   &   4   &   8   \\
+		7.  & spmv      & 16/2  &  30   &  14   &   4   &   8   \\
+		8.  & stencil   & 15/2  &  30   &  14   &   5   &   6   \\ \bottomrule
+	\end{tabular}
 	}
 \end{table}
 
@@ -67,19 +67,19 @@ The throughput of AXI-Xillybus is about half of that of MXP-V16, mainly due to A
 
 
 \begin{table}[tb]
-	%	\renewcommand{\arraystretch}{1.2}
+%	\renewcommand{\arraystretch}{1.2}
 	\caption{Area overhead of AXI bus-based systems.}
 	\label{xillybus_mxp_area}
 	\centering
 	\resizebox{\columnwidth}{!}{
-		\begin{tabular}{lrrrr}
-			\toprule
-			System               &                \multicolumn{4}{c}{Resource Usage}                \\ \cline{2-5}
-			&            LUTs &              FFs &        BRAMs &         DSPs \\ \midrule
-			AXI-Xillybus-Overlay &           5,747 &            5,798 &            5 &            8 \\
-			MXP-V16              &          28,974 &           22,174 &           66 &          112 \\
-			\textbf{Available}   & \textbf{53,200} & \textbf{106,400} & \textbf{140} & \textbf{220} \\ \bottomrule
-		\end{tabular}
+	\begin{tabular}{lrrrr}
+		\toprule
+		System               &                \multicolumn{4}{c}{Resource Usage}                \\ \cline{2-5}
+		                     &            LUTs &              FFs &        BRAMs &         DSPs \\ \midrule
+		AXI-Xillybus-Overlay &           5,747 &            5,798 &            5 &            8 \\
+		MXP-V16              &          28,974 &           22,174 &           66 &          112 \\
+		\textbf{Available}   & \textbf{53,200} & \textbf{106,400} & \textbf{140} & \textbf{220} \\ \bottomrule
+	\end{tabular}
 	}
 \end{table}
 
@@ -120,21 +120,25 @@ Hence the send function (\textit{fpga\_send}) and receive function (\textit{fpga
 
 \subsubsection{DyRACT Loopback Test}
 %%%%Description of DyRACT loopback test.%%%%
+The bandwidth of the loopback test for DyRACT data loopback is shown in Figure~\ref{pcie_xillybus_riffa_loopback_bw}. 
+
+%%%%Analysis of DyRACT loopback test.%%%%
+
 
 \subsubsection{PCIe-Xillybus based Overlay Accelerator}
 %Figure~\ref{pcie_xillybus_overlay} shows the PCIe-Xillybus based overlay accelerator and its data streams. 
-In the PCIe-Xillybus based overlay accelerator system, we propose replicating four 32-bit linear TM overlays, interfacing with the 128-bit FIFOs to make full use of the data width.
+In the PCIe-Xillybus based overlay accelerator system, we propose replicating four 32-bit linear TM overlays, interfacing with the 128-bit standard FIFOs to make full use of the data width.
 Thus, two 128-bit streaming device files are instantiated for data acquisition and one 128-bit seekable device file is responsible for instruction load and overlay setup. 
 
 \subsubsection{RIFFA based Overlay Accelerator}
 Integration of the linear TM overlay with RIFFA is quite similar to that of Xillybus, except that the standard FIFOs are replaced with FWFT FIFOs.  
-%Four 32-bit overlays are connected with the 128-bit FWFT FIFOs to make full use of the data width. 
 Although RIFFA has no access to the FPGA RAMs directly, it is possible to load the instructions and registers by adding a new state to the FSM control. 
 The RX (view from the integrated overlay side) is divided into two processes: one for overlay initialization, and the other one for data transmission. 
 
 \subsubsection{DyRACT based Overlay Accelerator}
 %%%%Description of DyRACT based Overlay Accelerator.%%%%
-
+Similarly, DyRACT is connected to four 32-bit linear TM overlays using two 128-bit standard FIFOs to buffer the data. 
+We customise three memory arrays to save the instructions along with their tags to the FUs, and the number of input data or the value of II minus one. 
 
 Figure~\ref{pcie_xillybus_riffa_bw} shows the performance of four 32-bit linear TM overlays integrated with PCIe-Xillybus (PCIe-Xillybus-Overlay), RIFFA (RIFFA-Overlay) and DyRACT (DyRACT-Overlay), respectively. 
 PCIe-Xillybus-Overlay uses a block size of 1M words with the Pthread multi-threading technique, while RIFFA-Overlay and DyRACT-Overlay use a block size of 128K words.
@@ -153,21 +157,21 @@ While the logic and DSP resources used are comparable among all these implementa
 This is due to the half-duplex mode of the RIFFA interface, resulting in a significant BRAM consumption to implement the two large depth FWFT FIFOs. 
 Developing a full-duplex RIFFA based system would minimize the BRAM resource usage. 
 At current stage, DyRACT-Overlay and PCIe-Xillybus-Overlay are much better than RIFFA-Overlay in terms of area efficiency. 
-
+ 
 \begin{table}[tb]
-	%	\renewcommand{\arraystretch}{1.2}
+%	\renewcommand{\arraystretch}{1.2}
 	\caption{Area overhead of PCIe-based systems.}
 	\label{pcie_xillybus_riffa_area}
 	\centering
 	\resizebox{\columnwidth}{!}{
-		\begin{tabular}{lrrrr}
-			\toprule
-			System                &                  \multicolumn{4}{c}{Resource Usage}                   \\ \cline{2-5}
-			&             LUTs &              FFs &          BRAMs &           DSPs \\ \midrule
-			PCIe-Xillybus-Overlay &           16,027 &           12,488 &           14.5 &             32 \\
-			RIFFA-Overlay         &           13,657 &           18,581 &          289.5 &             32 \\
-			DyRACT-Overlay        &           17,344 &           16,464 &             10 &             32 \\
-			\textbf{Available}    & \textbf{303,600} & \textbf{607,200} & \textbf{1,030} & \textbf{2,800} \\ \bottomrule
-		\end{tabular}
+	\begin{tabular}{lrrrr}
+		\toprule
+		System                &                  \multicolumn{4}{c}{Resource Usage}                   \\ \cline{2-5}
+		                      &             LUTs &              FFs &          BRAMs &           DSPs \\ \midrule
+		PCIe-Xillybus-Overlay &           16,027 &           12,488 &           14.5 &             32 \\
+		RIFFA-Overlay         &           13,657 &           18,581 &          289.5 &             32 \\
+		DyRACT-Overlay        &           17,344 &           16,464 &             10 &             32 \\
+		\textbf{Available}    & \textbf{303,600} & \textbf{607,200} & \textbf{1,030} & \textbf{2,800} \\ \bottomrule
+	\end{tabular}
 	}
 \end{table}
