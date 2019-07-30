@@ -29,7 +29,7 @@
 		\begin{tikzpicture}[scale = 0.9]
 		\centering
 		\begin{axis}[
-		%		axis y line=left,
+%		axis y line=left,
 		ybar=0pt,
 		width=17cm,
 		x = 0.85cm,
@@ -43,14 +43,14 @@
 		xtick=data,
 		bar width = 5, %0.15
 		xticklabels = {
-			\strut 1,
-			\strut 2,
-			\strut 3,
-			\strut 4,
-			\strut 5,
-			\strut 6,
-			\strut 7,
-			\strut 8                                   
+			\strut chebyshev,
+			\strut mibench,
+			\strut qspline,
+			\strut fft,
+			\strut kmeans,
+			\strut mm,
+			\strut spmv,
+			\strut stencil                                     
 		},
 		x tick label style={rotate=45, anchor=north east, inner sep=0mm},
 		major x tick style = {opacity=0},
@@ -72,12 +72,12 @@
 				\ref{MB_xillybus_pcie} PCIe-Xillybus-Overlay  \ref{MB_riffa} RIFFA-Overlay \\ \ref{MB_dyract} DyRACT-Overlay }};	
 		\end{tikzpicture}
 	}
-	
+
 	\subfigure[Throughput in MOPS]{
 		\begin{tikzpicture}[scale = 0.9]
 		\centering
 		\begin{axis}[
-		%		axis y line=right,
+%		axis y line=right,
 		ybar=0pt,
 		width=17cm,
 		x = 0.85cm,
@@ -91,14 +91,14 @@
 		xtick=data,
 		bar width = 5, %0.15
 		xticklabels = {
-			\strut 1,
-			\strut 2,
-			\strut 3,
-			\strut 4,
-			\strut 5,
-			\strut 6,
-			\strut 7,
-			\strut 8                                   
+			\strut chebyshev,
+			\strut mibench,
+			\strut qspline,
+			\strut fft,
+			\strut kmeans,
+			\strut mm,
+			\strut spmv,
+			\strut stencil                                      
 		},
 		x tick label style={rotate=45, anchor=north east, inner sep=0mm},
 		major x tick style = {opacity=0},
