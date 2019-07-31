@@ -1,5 +1,5 @@
 \section{Overlay Accelerator Framework}
-A block diagram of the proposed overlay accelerator system, based on an array of linear TM overlays as described in the previous section, which supports both Zynq-based SoC and standalone PCIe accelerators, is shown in Figure~\ref{system}. 
+A block diagram of the proposed overlay accelerator system, based on an array of linear TM overlays as described in the previous section, which supports both Xilinx Zynq-based SoC and standalone PCIe configurations, is shown in Figure~\ref{system}. 
 The FPGA memory subsystem provides the interface between the overlay on the FPGA fabric and the ARM processor on a Zynq SoC via the AXI bus (or directly to the memory via the PCIe link). 
 For the AXI bus-based overlay, two 32-bit FIFOs are used to connect a single 32-bit linear TM overlay with the memory subsystem. 
 %For the PCIe-based overlay, four 32-bit linear TM overlays are used to make full use of the 128-bit data bandwidth and thus reduce the II to a quarter of that of a single overlay. 

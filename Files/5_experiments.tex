@@ -88,7 +88,7 @@ This is mainly due to not making good use of the available HP/ACP ports (Xillybu
 
 
 \subsection{PCIe System}
-Our PCIe system is based on the 8-lane Gen2 PCIe interface running at a frequency of 250 MHz, which corresponds to a maximum bandwidth of 8000 MB/s and hence a maximum streaming throughput of 4000 MB/s for a full-duplex system. 
+Our PCIe system is based on the Gen2$\times$8 PCIe interface running at a frequency of 250 MHz, which corresponds to a maximum bandwidth of 8000 MB/s and hence a maximum streaming throughput of 4000 MB/s for a full-duplex system. 
 
 \subsubsection{PCIe-Xillybus Loopback Test}
 Xillybus has been upgraded to a new version (PCIe-Xillybus) to support high performance PCIe interface communication since 2015. 
@@ -100,7 +100,7 @@ As seen from this diagram, the data transmission is very slow when the transfer 
 This is due to large system overhead for a data buffer size of less than 128 KBytes~\cite{xillybus2018}. 
 The single-threaded loopback test saturates at a throughput of 1900 MB/s when the transfer size exceeds 128K words, while the multi-thread loopback test saturates (with a maximum throughput of 2300 MB/s) when the transfer size exceeds 500K words. 
 %The single-threaded loopback test saturates at a throughput of around 1900 MB/s (maximum of 2000 MB/s) when the transfer size exceeds 128K words, while the multi-thread loopback test saturates (with a maximum throughput of 2300 MB/s) when the transfer size exceeds 500K words. 
-The two dashed lines indicate the theoretical bandwidth of the Gen2x8 PCIe interface running at 250 MHz.
+The two dashed lines indicate the theoretical bandwidth of the Gen2$\times$8 PCIe interface running at 250 MHz.
 The throughput of the multi-thread test surpasses that of the single-thread test for data block sizes exceeding 256K words, and achieves around 1.2$\times$ higher bandwidth when transferring 1M words. 
 Although the throughput of the multi-thread test is not as expected (twice that of the single-thread test), it shows better performance for the transmission of large data blocks. 
 
