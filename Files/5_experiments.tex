@@ -96,64 +96,58 @@ Our PCIe system is based on the Gen2$\times$8 PCIe interface running at a freque
 
 \subsubsection{Loopback Test}
 %%% Combine Xillybus, RIFFA and DyRACT together %%%
+Similar to the AXI-Xillybus System, we first evaluate the baseline performance of the three PCIe interfaces using a loopback test. 
 
-\subsubsection{PCIe-Xillybus Loopback Test}
+\noindent \textbf{PCIe-Xillybus}
 Xillybus has been upgraded to a new version (PCIe-Xillybus) to support high performance PCIe interface communication since 2015. 
 The block diagram of PCIe-Xillybus for data loopback is almost the same as that of AXI-Xillybus, except that the 32-bit FIFO is replaced with a 128-bit FIFO and the Xillybus hardware module \textit{Xillybus.v} (including the Xillybus IP core and a Xilinx 7 series integrated block for PCIe) is connected to an HP Z420 workstation via the PCIe link. 
 Similar to AXI-Xillybus, we developed two host programs to evaluate the round-trip bandwidth in both half-duplex and full-duplex mode. 
 
-The bandwidth of the loopback test for PCIe-Xillybus using different data block sizes is shown in Figure~\ref{pcie_xillybus_riffa_loopback_bw}. 
-As seen from this diagram, the data transmission is very slow when the transfer size is less than 32K words. 
-This is due to large system overhead for a data buffer size of less than 128 KBytes~\cite{xillybus2018}. 
-The single-threaded loopback test saturates at a throughput of 1900 MB/s when the transfer size exceeds 128K words, while the multi-thread loopback test saturates (with a maximum throughput of 2300 MB/s) when the transfer size exceeds 500K words. 
-%The single-threaded loopback test saturates at a throughput of around 1900 MB/s (maximum of 2000 MB/s) when the transfer size exceeds 128K words, while the multi-thread loopback test saturates (with a maximum throughput of 2300 MB/s) when the transfer size exceeds 500K words. 
-The two dashed lines indicate the theoretical bandwidth of the Gen2$\times$8 PCIe interface running at 250 MHz.
-The throughput of the multi-thread test surpasses that of the single-thread test for data block sizes exceeding 256K words, and achieves around 1.2$\times$ higher bandwidth when transferring 1M words. 
-Although the throughput of the multi-thread test is not as expected (twice that of the single-thread test), it shows better performance for the transmission of large data blocks. 
-
-\input{Figures_tex/pcie_xillybus_riffa_loopback_bw}
-
-\subsubsection{RIFFA Loopback Test}
-Similarly, a loopback design using RIFFA framework was also implemented. 
-A first word fall through (FWFT) FIFO is used for data loop back, and the RIFFA IP core is acting as the bridge between the vendor-specific PCIe Endpoint and the FWFT FIFO. 
+\noindent \textbf{RIFFA}
+The loopback test design of RIFFA framework is slightly different from that of Xillybus. 
+A first word fall through (FWFT) FIFO is used for data transmission between the RIFFA IP core and the user logic applications. 
 Data transmission is under the control of a finite state machine (FSM), which executes the upstream transfers and downstream transfers in different processing states.  
 Thus, it is not possible to achieve full-duplex data transmission. 
 
-The bandwidth for RIFFA data loopback is shown in Figure~\ref{pcie_xillybus_riffa_loopback_bw}. 
-As seen from this diagram, both the upstream transfers (read) and downstream transfers (write) saturate at around 2.85 GB/s when the transfer size is equal to 128K sample words, corresponding a total bandwidth of 2.85 GB/s, as read and write cannot happen simultaneously. 
+\noindent \textbf{DyRACT}
+\todo[inline]{Add a description of DyRACT loopback design}
+
+
+The bandwidth of the loopback test for PCIe-Xillybus, RIFFA and DyRACT using different data block sizes is shown in Figure~\ref{pcie_xillybus_riffa_loopback_bw}. 
+The two dashed lines indicate the theoretical bandwidth of the Gen2$\times$8 PCIe interface running at 250 MHz.
+
+\input{Figures_tex/pcie_xillybus_riffa_loopback_bw}
+
+For PCIe-Xillybus system, the data transmission is very slow when the transfer size is less than 32K words. 
+This is due to large system overhead for a data buffer size of less than 128 KBytes~\cite{xillybus2018}. 
+The single-threaded loopback test saturates at a throughput of 1900 MB/s when the transfer size exceeds 128K words, while the multi-thread loopback test saturates (with a maximum throughput of 2300 MB/s) when the transfer size exceeds 500K words. 
+The throughput of the multi-thread test surpasses that of the single-thread test for data block sizes exceeding 256K words, and achieves around 1.2$\times$ higher bandwidth when transferring 1M words. 
+Although the throughput of the multi-thread test is not as expected (twice that of the single-thread test), it shows better performance for the transmission of large data blocks. 
+
+
+For RIFFA system, both the upstream transfers (read) and downstream transfers (write) saturate at around 2.85 GB/s when the transfer size is equal to 128K sample words, corresponding a total bandwidth of 2.85 GB/s, as read and write cannot happen simultaneously. 
 The bandwidth degrades slightly when the transfer size exceeds 128k words due to the overutilization of BRAMs.
 As mentioned previously, the RIFFA hardware was not developed for full-duplex data transmission. 
-Hence the send function (\textit{fpga\_send}) and receive function (\textit{fpga\_recv}) will execute sequentially and it is useless to use multi-threading techniques as was done for Xillybus. 
-
-\subsubsection{DyRACT Loopback Test}
-%%%%Description of DyRACT loopback test.%%%%
-The bandwidth of the loopback test for DyRACT data loopback is shown in Figure~\ref{pcie_xillybus_riffa_loopback_bw}. 
-
-%%%%Analysis of DyRACT loopback test.%%%%
+Hence the send and receive functions will execute sequentially and it is useless to use multi-threading techniques as was done for Xillybus. 
 
 
-\subsubsection{PCIe-Xillybus based Overlay Accelerator}
-%Figure~\ref{pcie_xillybus_overlay} shows the PCIe-Xillybus based overlay accelerator and its data streams. 
-In the PCIe-Xillybus based overlay accelerator system, we propose replicating four 32-bit linear TM overlays, interfacing with the 128-bit standard FIFOs to make full use of the data width.
-Thus, two 128-bit streaming device files are instantiated for data acquisition and one 128-bit seekable device file is responsible for instruction load and overlay setup. 
+For DyRACT system,  \todo[inline]{Analysis of DyRACT loopback test performance}
 
-\subsubsection{RIFFA based Overlay Accelerator}
-Integration of the linear TM overlay with RIFFA is quite similar to that of Xillybus, except that the standard FIFOs are replaced with FWFT FIFOs.  
-Although RIFFA has no access to the FPGA RAMs directly, it is possible to load the instructions and registers by adding a new state to the FSM control. 
-The RX (view from the integrated overlay side) is divided into two processes: one for overlay initialization, and the other one for data transmission. 
 
-\subsubsection{DyRACT based Overlay Accelerator}
-%%%%Description of DyRACT based Overlay Accelerator.%%%%
-Similarly, DyRACT is connected to four 32-bit linear TM overlays using two 128-bit standard FIFOs to buffer the data. 
-We customise three memory arrays to save the instructions along with their tags to the FUs, and the number of input data or the value of II minus one. 
+\subsubsection{PCIe-based Overlay Accelerator}
+In the PCIe-based overlay accelerator framework, we propose replicating four 32-bit linear TM overlays, interfacing with two 128-bit FIFOs to make full use of the data width.
+The overlay interfacing with PCIe-Xillybus or RIFFA has to hardcode the instructions to the FUs as it has no access to the FPGA RAMs directly. 
+Thus reconfiguring the overlay is inevitable when the application kernel changes. 
+In comparison, the overlay interfacing with DyRACT is able to customise three memory arrays to restore the instructions along with their tags to the FUs, and the number of input data or the value of II minus one (II-1). 
+
 
 Figure~\ref{pcie_xillybus_riffa_bw} shows the performance of four 32-bit linear TM overlays integrated with PCIe-Xillybus (PCIe-Xillybus-Overlay), RIFFA (RIFFA-Overlay) and DyRACT (DyRACT-Overlay), respectively. 
-PCIe-Xillybus-Overlay uses a block size of 1M words with the Pthread multi-threading technique, while RIFFA-Overlay and DyRACT-Overlay use a block size of 128K words.
+PCIe-Xillybus-Overlay uses a block size of 1M words with the Pthread multi-threading technique, while RIFFA-Overlay and DyRACT-Overlay use a block size of 128K words. 
 All these overlay accelerators are running on an Ubuntu 14.04.5 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
 As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT-Overlay achieves an average throughput of 1540 MB/s (38.5\% of theoretical maximum), which is around 18\% higher than RIFFA-Overlay with an average throughput of 1300 MB/s and 4.3$\times$ better than PCIe-Xillybus-Overlay with an average throughput of 358 MB/s (9\% of theoretical maximum). 
 The ratio of the throughput in Mega-operations per second (MOPS) is proportional to that of data processing throughput in MB/s. 
 DyRACT-Overlay proves to be the best accelerator in terms of throughput. 
-%%%%Add some analysis%%%%
+\todo[inline]{Add some in-depth analysis for the overlay accelerators}
 
 \input{Figures_tex/pcie_xillybus_riffa_bw}
 
