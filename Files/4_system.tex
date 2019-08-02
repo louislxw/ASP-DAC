@@ -1,4 +1,5 @@
 \section{Overlay Accelerator Framework}
+\label{section_4}
 A block diagram of the proposed overlay accelerator system, based on an array of linear TM overlays as described in the previous section, which supports both Xilinx Zynq-based SoC and standalone PCIe configurations, is shown in Figure~\ref{system}. 
 The FPGA memory subsystem provides the interface between the overlay on the FPGA fabric and the ARM processor on a Zynq SoC via the AXI bus (or directly to the memory via the PCIe link). 
 For the AXI bus-based overlay, two 32-bit FIFOs are used to connect a single 32-bit linear TM overlay with the memory subsystem. 
@@ -63,8 +64,7 @@ The middle layer supports up to 12 channels which send packets to the TX engine 
 The overlay which connects to the RX/TX FIFOs from the communication channels, is located on the top layer. 
 An example design of one channel for data transfer, along with driver and software code, is provided. 
 %Dedicated software APIs (\textit{fpga\_send} and \textit{fpga\_recv}) were developed as blocking functions.
-Integration of the linear TM overlay with RIFFA is quite similar to that of Xillybus, except
-that the standard FIFOs are replaced with first word fall through (FWFT) FIFOs to meet the timing closure. 
+Integration of the linear TM overlay with RIFFA is quite similar to that of Xillybus, except that the standard FIFOs are replaced with first word fall through (FWFT) FIFOs to meet the timing closure. 
 %For a more complicated design, multiple channels (up to 12 per FPGA) can be instantiated to integrate with different user cores independently. 
 
 %\begin{figure}[tb]
