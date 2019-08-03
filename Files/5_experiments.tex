@@ -1,4 +1,4 @@
-\section{Experimental Setup}
+\section{Experimental Evaluation}
 \label{section_5}
 We conducted experiments for both the AXI bus-based and PCIe-based overlay accelerators.  
 For the AXI bus-based system, the experimental software runs on the ARM processor of the Xilinx ZedBoard. 
@@ -144,17 +144,17 @@ In comparison, the overlay interfacing with DyRACT is able to customise three me
 Figure~\ref{pcie_xillybus_riffa_bw} shows the performance of four 32-bit linear TM overlays integrated with PCIe-Xillybus (PCIe-Xillybus-Overlay), RIFFA (RIFFA-Overlay) and DyRACT (DyRACT-Overlay), respectively. 
 PCIe-Xillybus-Overlay uses a block size of 1M words with the Pthread multi-threading technique, while RIFFA-Overlay and DyRACT-Overlay use a block size of 128K words. 
 All these overlay accelerators are running on an Ubuntu 14.04.5 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
-As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT-Overlay achieves an average throughput of 1540 MB/s (38.5\% of theoretical maximum), which is around 18\% higher than RIFFA-Overlay with an average throughput of 1300 MB/s and 4.3$\times$ better than PCIe-Xillybus-Overlay with an average throughput of 358 MB/s (9\% of theoretical maximum). 
+As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT-Overlay achieves an average throughput of 1540 MB/s (38.5\% of theoretical maximum), which is around 18\% higher than RIFFA-Overlay with an average throughput of 1300 MB/s (32.5\% of the theoretical maximum) and 4.3$\times$ better than PCIe-Xillybus-Overlay with an average throughput of 358 MB/s (9\% of theoretical maximum). 
 The ratio of the throughput in Mega-operations per second (MOPS) is proportional to that of data processing throughput in MB/s. 
-DyRACT-Overlay proves to be the best accelerator in terms of throughput. 
+Among the three implementations, DyRACT-Overlay proves to be the best accelerator in terms of throughput. 
 %\todo[inline]{Add some in-depth analysis for the overlay accelerators}
-Although all the three implementations show slight fluctuation of the throughput in MB/s, it has dramastic changes in terms of MOPS. 
-This is mainly due to the large number of I/O ports (especially for the last four benchmarks), which corresponds to larger II values. 
+Although all the three overlay accelerators show slight fluctuation of the throughput in MB/s, dramastic changes happen when calculating in MOPS. 
+This is mainly due to the large number of I/O ports (especially for the last four benchmarks), which results in larger II values. 
 In a nutshell, the linear TM overlay accelerators are more suitable to the benchmarks with less number of I/O ports. 
 
 \input{Figures_tex/pcie_xillybus_riffa_bw}
 
-Table~\ref{pcie_xillybus_riffa_area} shows a breakdown of the FPGA resource usage of the overlay, PCIe-Xillybus, RIFFA and DyRACT. 
+Table~\ref{pcie_xillybus_riffa_area} shows a breakdown of the FPGA resource usage of the overlay, PCIe-Xillybus, RIFFA and DyRACT, respectively. 
 %RIFFA-Overlay consumes 15\% fewer LUTs, 49\% more FFs, 29$\times$ more BRAMs and the same DSP blocks compared to PCIe-Xillybus-Overlay. 
 PCIe-Xillybus-Overlay consumes least number of FFs (33\% fewer than RIFFA-Overlay), while RIFFA-Overlay costs least number of LUTs (21\% fewer than DyRACT-Overlay) and DyRACT-Overlay is most area efficient in BRAMs consumption (96\% fewer than RIFFA-Overlay). 
 While the logic and DSP resources used are comparable among all these implementations, there is a big difference in the BRAM utilization specifically for RIFFA-Overlay.
