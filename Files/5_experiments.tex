@@ -69,20 +69,19 @@ The throughput of AXI-Xillybus is about half of that of MXP-V16, mainly due to A
 
 
 \begin{table}[tb]
-%	\renewcommand{\arraystretch}{1.2}
+	%	\renewcommand{\arraystretch}{1.2}
 	\caption{Area overhead of AXI bus-based systems.}
 	\label{xillybus_mxp_area}
 	\centering
 	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{lrrrr}
-		\toprule
-		\multirow{2}{*}{System} &                \multicolumn{4}{c}{Resource Usage}                \\ \cline{2-5}
-		                        &            LUTs &              FFs &        BRAMs &         DSPs \\ \midrule
-		Overlay                 &           1,747 &            1,954 &            0 &            8 \\
-		AXI-Xillybus            &           4,000 &            3,844 &            5 &            0 \\ \midrule
-		MXP-V16                 &          28,974 &           22,174 &           66 &          112 \\ \midrule
-		\textbf{Available}      & \textbf{53,200} & \textbf{106,400} & \textbf{140} & \textbf{220} \\ \bottomrule
-	\end{tabular}
+		\begin{tabular}{lrrrr}
+			\toprule
+			System               &                \multicolumn{4}{c}{Resource Usage}                \\ \cline{2-5}
+			&            LUTs &              FFs &        BRAMs &         DSPs \\ \midrule
+			AXI-Xillybus-Overlay &           5,747 &            5,798 &            5 &            8 \\
+			MXP-V16              &          28,974 &           22,174 &           66 &          112 \\
+			\textbf{Available}   & \textbf{53,200} & \textbf{106,400} & \textbf{140} & \textbf{220} \\ \bottomrule
+		\end{tabular}
 	}
 \end{table}
 
@@ -148,7 +147,7 @@ In comparison, the overlay interfacing with DyRACT is able to customise three me
 Figure~\ref{pcie_xillybus_riffa_bw} shows the performance of four 32-bit linear TM overlays integrated with PCIe-Xillybus (PCIe-Xillybus-Overlay), RIFFA (RIFFA-Overlay) and DyRACT (DyRACT-Overlay), respectively. 
 PCIe-Xillybus-Overlay uses a block size of 1M words with the Pthread multi-threading technique, while RIFFA-Overlay and DyRACT-Overlay use a block size of 128K words. 
 All these overlay accelerators are running on an Ubuntu 14.04.5 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
-As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT-Overlay achieves an average throughput of 1540 MB/s (38.5\% of theoretical maximum), which is around 18\% higher than RIFFA-Overlay with an average throughput of 1300 MB/s (32.5\% of the theoretical maximum) and 4.3$\times$ better than PCIe-Xillybus-Overlay with an average throughput of 358 MB/s (9\% of theoretical maximum). 
+As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT-Overlay achieves an average throughput of 1892 MB/s (47.3\% of theoretical maximum), which is around 45\% higher than RIFFA-Overlay with an average throughput of 1300 MB/s (32.5\% of the theoretical maximum) and 5.3$\times$ better than PCIe-Xillybus-Overlay with an average throughput of 358 MB/s (9\% of theoretical maximum). 
 The ratio of the throughput in Mega-operations per second (MOPS) is proportional to that of data processing throughput in MB/s. 
 Among the three implementations, DyRACT-Overlay proves to be the best accelerator in terms of throughput. 
 %\todo[inline]{Add some in-depth analysis for the overlay accelerators}
@@ -158,29 +157,28 @@ In a nutshell, the linear TM overlay accelerators are more suitable to the bench
 
 \input{Figures_tex/pcie_xillybus_riffa_bw}
 
-Table~\ref{pcie_xillybus_riffa_area} shows a breakdown of the FPGA resource usage of the overlay, PCIe-Xillybus, RIFFA and DyRACT, respectively. 
+Table~\ref{pcie_xillybus_riffa_area} shows the FPGA resource usage of PCIe-Xillybus-Overlay, RIFFA-Overlay and DyRACT-Overlay, respectively. 
 %RIFFA-Overlay consumes 15\% fewer LUTs, 49\% more FFs, 29$\times$ more BRAMs and the same DSP blocks compared to PCIe-Xillybus-Overlay. 
-PCIe-Xillybus-Overlay consumes least number of FFs (33\% fewer than RIFFA-Overlay), while RIFFA-Overlay costs least number of LUTs (21\% fewer than DyRACT-Overlay) and DyRACT-Overlay is most area efficient in BRAMs consumption (96\% fewer than RIFFA-Overlay). 
-While the logic and DSP resources used are comparable among all these implementations, there is a big difference in the BRAM utilization specifically for RIFFA-Overlay.
+PCIe-Xillybus-Overlay consumes least number of FFs (33\% fewer than RIFFA-Overlay), while RIFFA-Overlay costs least number of LUTs (20\% fewer than DyRACT-Overlay) and DyRACT-Overlay is most area efficient in BRAMs consumption (96\% fewer than RIFFA-Overlay). 
+While the logic and DSP resources used are comparable among all these implementations, there is a big difference in the BRAM utilization specifically for RIFFA-Overlay. 
 This is due to the half-duplex mode of the RIFFA interface, resulting in a significant BRAM consumption to implement the two large depth FWFT FIFOs. 
 Developing a full-duplex RIFFA based system would minimize the BRAM resource usage. 
 At current stage, DyRACT-Overlay and PCIe-Xillybus-Overlay are much better than RIFFA-Overlay in terms of area efficiency. 
  
 \begin{table}[tb]
-%	\renewcommand{\arraystretch}{1.2}
+	%	\renewcommand{\arraystretch}{1.2}
 	\caption{Area overhead of PCIe-based systems.}
 	\label{pcie_xillybus_riffa_area}
 	\centering
 	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{lrrrr}
-		\toprule
-		\multirow{2}{*}{System} &                  \multicolumn{4}{c}{Resource Usage}                   \\ \cline{2-5}
-		                        &             LUTs &              FFs &          BRAMs &           DSPs \\ \midrule
-		Overlay                 &            6,988 &            7,816 &              0 &             32 \\
-		PCIe-Xillybus           &            9,039 &            4,672 &           14.5 &              0 \\
-		RIFFA                   &            6,669 &           10,765 &          289.5 &              0 \\
-		DyRACT                  &           10,356 &            8,648 &             10 &              0 \\
-		\textbf{Available}      & \textbf{303,600} & \textbf{607,200} & \textbf{1,030} & \textbf{2,800} \\ \bottomrule
-	\end{tabular}
+		\begin{tabular}{lrrrr}
+			\toprule
+			System                &                  \multicolumn{4}{c}{Resource Usage}                   \\ \cline{2-5}
+			                      &             LUTs &              FFs &          BRAMs &           DSPs \\ \midrule
+			PCIe-Xillybus-Overlay &           16,027 &           12,488 &           14.5 &             32 \\
+			RIFFA-Overlay         &           13,657 &           18,581 &          289.5 &             32 \\
+			DyRACT-Overlay        &           17,029 &           16,302 &             10 &             32 \\
+			\textbf{Available}    & \textbf{303,600} & \textbf{607,200} & \textbf{1,030} & \textbf{2,800} \\ \bottomrule
+		\end{tabular}
 	}
 \end{table}
