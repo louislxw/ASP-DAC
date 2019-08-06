@@ -29,7 +29,7 @@
 		\begin{tikzpicture}[scale = 0.9]
 		\centering
 		\begin{axis}[
-		%		axis y line=left,
+%		axis y line=left,
 		ybar=0pt,
 		width=17cm,
 		x = 0.85cm,
@@ -68,16 +68,16 @@
 		\addplot[draw=black,fill=green, draw opacity=1] table[x index=0,y index=6]   \datathroughput;\label{MB_dyract} 						
 		\end{axis}
 		
-		\node [draw=none, fill=white, font=\small] at (rel axis cs: 0.6, 0.8) {\shortstack[l]{
-				\ref{MB_xillybus_pcie} PCIe-Xillybus-Overlay  \ref{MB_riffa} RIFFA-Overlay \\ \ref{MB_dyract} DyRACT-Overlay }};	
+		\node [draw=none, fill=white, font=\small] at (rel axis cs: 0.58, 0.8) {\shortstack[l]{
+				\ref{MB_xillybus_pcie} PCIe-Xillybus-Interface  \ref{MB_riffa} RIFFA-Interface \\ \ref{MB_dyract} DyRACT-Interface }};	
 		\end{tikzpicture}
 	}
-	
+
 	\subfigure[Throughput in MOPS]{
 		\begin{tikzpicture}[scale = 0.9]
 		\centering
 		\begin{axis}[
-		%		axis y line=right,
+%		axis y line=right,
 		ybar=0pt,
 		width=17cm,
 		x = 0.85cm,
@@ -116,8 +116,8 @@
 		\addplot[draw=black,fill=green, draw opacity=1] table[x index=0,y index=3]   \datathroughput;\label{MOPS_dyract} 					
 		\end{axis}
 		
-		\node [draw=none, fill=white, font=\small] at (rel axis cs: 0.6, 0.8) {\shortstack[l]{
-				\ref{MOPS_xillybus_pcie} PCIe-Xillybus-Overlay  \ref{MOPS_riffa} RIFFA-Overlay \\ \ref{MOPS_dyract} DyRACT-Overlay }};	
+		\node [draw=none, fill=white, font=\small] at (rel axis cs: 0.58, 0.8) {\shortstack[l]{
+				\ref{MOPS_xillybus_pcie} PCIe-Xillybus-Interface  \ref{MOPS_riffa} RIFFA-Interface \\ \ref{MOPS_dyract} DyRACT-Interface }};	
 		\end{tikzpicture}
 	}
 	
