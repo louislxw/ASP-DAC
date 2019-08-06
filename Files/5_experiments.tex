@@ -24,7 +24,7 @@ Creating Pthreads introduces a significant overhead for smaller transfer sizes, 
 \input{Figures_tex/axi_xillybus_loopback_bw}
 
 \subsubsection{AXI-Xillybus based Overlay Accelerator}
-Xillybus provides an online IP core factory for users to customize the interface on demands.
+Xillybus provides an online IP core factory for users to customise the interface on demands.
 %The accelerator and its data streams are shown in Figure~\ref{axi_xillybus_overlay}. 
 In our design, two 32-bit streaming device files are instantiated for data acquisition and one 32-bit seekable device file is responsible for the instruction load and overlay setup. 
 We evaluate the performance of the overlay accelerator which is an integration of the linear TM overlay as discussed in Section~\ref{section_3} and AXI-Xillybus interface, and compare to VectorBlox MXP~\cite{severance2013embedded}, in terms of bandwidth and area consumption. 
@@ -32,37 +32,37 @@ To perform this comparison, we use the set of kernels shown in Table~\ref{benchm
 Both the overlay accelerator and MXP are running on Xillinux-2.0, which is the latest Linux distribution released for ZedBoard, with AXI-Xillybus using the Pthread multi-threading technique with a data block transfer size of 1M words.
 
 \begin{table}[tb]
-	%	\renewcommand{\arraystretch}{1.2}
+%	\renewcommand{\arraystretch}{1.2}
 	\caption{DFG characteristics of benchmark set.}
 	\label{benchmarks_system}
 	\centering
 	\resizebox{\columnwidth}{!}{
-		\begin{tabular}{clccccc}
-			\toprule
-			\multirow{3}{*}{No.} & \multirow{3}{*}{Benchmark} &  \multicolumn{5}{c}{Characteristics}  \\ \cline{3-7}
-			&                            &  I/O  & graph &  op   & graph & graph \\
-			&                            & nodes & edges & nodes & depth & width \\ \midrule
-			1.          & chebyshev                  &  1/1  &  12   &   7   &   7   &   1   \\
-			2.          & mibench                    &  3/1  &  22   &  13   &   6   &   3   \\
-			3.          & qspline                    &  7/1  &  50   &  25   &   8   &   6   \\
-			4.          & fft                        &  6/4  &  24   &  10   &   3   &   4   \\
-			5.          & kmeans                     & 16/1  &  39   &  23   &   5   &   8   \\
-			6.          & mm                         & 16/1  &  31   &  15   &   4   &   8   \\
-			7.          & spmv                       & 16/2  &  30   &  14   &   4   &   8   \\
-			8.          & stencil                    & 15/2  &  30   &  14   &   5   &   6   \\ \bottomrule
-		\end{tabular}
+	\begin{tabular}{clccccc}
+		\toprule
+		\multirow{3}{*}{No.} & \multirow{3}{*}{Benchmark} &  \multicolumn{5}{c}{Characteristics}  \\ \cline{3-7}
+		                     &                            &  I/O  & graph &  op   & graph & graph \\
+		                     &                            & nodes & edges & nodes & depth & width \\ \midrule
+		         1.          & chebyshev                  &  1/1  &  12   &   7   &   7   &   1   \\
+		         2.          & mibench                    &  3/1  &  22   &  13   &   6   &   3   \\
+		         3.          & qspline                    &  7/1  &  50   &  25   &   8   &   6   \\
+		         4.          & fft                        &  6/4  &  24   &  10   &   3   &   4   \\
+		         5.          & kmeans                     & 16/1  &  39   &  23   &   5   &   8   \\
+		         6.          & mm                         & 16/1  &  31   &  15   &   4   &   8   \\
+		         7.          & spmv                       & 16/2  &  30   &  14   &   4   &   8   \\
+		         8.          & stencil                    & 15/2  &  30   &  14   &   5   &   6   \\ \bottomrule
+	\end{tabular}
 	}
 \end{table}
 
-Figure~\ref{axi_xillybus_mxp_bw} shows the performance of an AXI-Xillybus-based 32-bit linear TM overlay system and a 16-lane 32-bit MXP (MXP-V16) implemented on a ZedBoard for the benchmarks given in Table~\ref{benchmarks_system}. 
-As seen from the figure, MXP-V16 outperforms the AXI-Xillybus-based system over all benchmarks (with the exception of `chebyshev'). 
+Figure~\ref{axi_xillybus_mxp_bw} shows the performance of an AXI-Xillybus based 32-bit linear TM overlay system and a 16-lane 32-bit MXP (MXP-V16) implemented on a ZedBoard for the benchmarks given in Table~\ref{benchmarks_system}. 
+As seen from the figure, MXP-V16 outperforms the AXI-Xillybus based system over all benchmarks (with the exception of `chebyshev'). 
 Table~\ref{xillybus_mxp_area} shows the hardware resource usage of the AXI-Xillybus based system and MXP-V16. 
-As seen from this table, the AXI-Xillybus-based system is much more area efficient, and consumes only 19.8\% LUTs, 26.1\% FFs, 7.6\% BRAMs and 7.1\% DSP blocks, compared to MXP-V16. 
+As seen from this table, the AXI-Xillybus based system is much more area efficient, and consumes only 19.8\% LUTs, 26.1\% FFs, 7.6\% BRAMs and 7.1\% DSP blocks, compared to MXP-V16. 
 
 \input{Figures_tex/axi_xillybus_mxp_bw}
 
 The MXP memory system is based on one 64-bit AXI HP port running at a frequency of 110 MHz while AXI-Xillybus is based on a single 32-bit AXI ACP port running at a frequency of 100 MHz. 
-This corresponds to a theoretical maximum throughput of 880 MB/s for MXP-V16 and 400 MB/s for the AXI-Xillybus-based system. 
+This corresponds to a theoretical maximum throughput of 880 MB/s for MXP-V16 and 400 MB/s for the AXI-Xillybus based system. 
 As seen from Figure~\ref{axi_xillybus_mxp_bw}, MXP-V16 achieves a throughput of 460.6 MB/s (52.3\% of theoretical maximum) on average while AXI-Xillybus has a throughput of 226.6 MB/s (56.6\% of theoretical maximum) on average. 
 %Figure~\ref{axi_xillybus_mxp_bw} indicates that AXI-Xillybus-V3 has a worse performance for the benchmarks with a larger number of I/O nodes. 
 The throughput of AXI-Xillybus is about half of that of MXP-V16, mainly due to AXI-Xillybus using only 32-bit of the available 64-bit ACP port while MXP-V16 uses the full 64-bit HP port. 
@@ -110,7 +110,7 @@ Thus, it is not possible to achieve full-duplex data transmission.
 DyRACT also uses internal FIFOs for temporarily storing data before transmitting/receiving from user logic.
 Since the back-end interface confirms to AXI4-Stream standard, the transmit and receive interfaces can be tied together to enable loopback.
 Due to the non-blocking APIs, unlike RIFFA, upstream and downstream transmission can happen in parallel.
-This provides better overall bidirectional performance, closer to the theoretical 8 GT/s.
+This provides better overall bidirectional performance.
 
 The bandwidth of the loopback test for PCIe-Xillybus, RIFFA and DyRACT using different data block sizes is shown in Figure~\ref{pcie_xillybus_riffa_loopback_bw}. 
 The two dashed lines indicate the theoretical bandwidth of the Gen2$\times$8 PCIe interface running at 250 MHz.
@@ -138,15 +138,15 @@ Figure~\ref{pcie_xillybus_riffa_loopback_bw} shows the average performance of Dy
 In the PCIe-based overlay accelerator framework, we propose replicating four 32-bit linear TM overlays, interfacing with two 128-bit FIFOs to make full use of the data width.
 The overlay interfacing with PCIe-Xillybus or RIFFA has to hardcode the instructions to the FUs as it has no access to the FPGA RAMs directly. 
 Thus reconfiguring the overlay is inevitable when the application kernel changes. 
-In comparison, the overlay interfacing with DyRACT can customize three memory arrays to restore the instructions along with their tags to the FUs, and the number of input data or the value of II minus one (II-1). 
+In comparison, the overlay interfacing with DyRACT can customise three memory arrays to restore the instructions along with their tags to the FUs, and the number of input data or the value of II minus one (II-1). 
 
 
 Figure~\ref{pcie_xillybus_riffa_bw} shows the performance of four 32-bit linear TM overlays integrated with PCIe-Xillybus, RIFFA and DyRACT, respectively. 
-The PCIe-Xillybus-based system and DyRACT-based system use a block size of 1M words with different parallel programming techniques, while RIFFA-based system uses a block size of 128K words.
+The PCIe-Xillybus based system and DyRACT based system use a block size of 1M words with different parallel programming techniques, while RIFFA based system uses a block size of 128K words.
 All these overlay accelerators are running on an Ubuntu 14.04.5 workstation (six 3.5 GHz Intel Xeon E5-1650 cores) with a Xilinx VC707 evaluation board plugged into the PCIe Gen2 slot of the motherboard. 
-As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT-based system achieves an average throughput of 1892 MB/s (47.3\% of theoretical maximum), which is around 45\% higher than RIFFA-based system with an average throughput of 1300 MB/s (32.5\% of the theoretical maximum) and 5.3$\times$ better than PCIe-Xillybus-based system with an average throughput of 358 MB/s (9\% of theoretical maximum). 
+As can be seen from Figure~\ref{pcie_xillybus_riffa_bw}, DyRACT based system achieves an average throughput of 1892 MB/s (47.3\% of theoretical maximum), which is around 45\% higher than RIFFA based system with an average throughput of 1300 MB/s (32.5\% of the theoretical maximum) and 5.3$\times$ better than PCIe-Xillybus based system with an average throughput of 358 MB/s (9\% of theoretical maximum). 
 The ratio of the throughput in Mega-operations per second (MOPS) is proportional to that of data processing throughput in MB/s. 
-Among the three implementations, DyRACT-based system proves to be the best accelerator in terms of throughput. 
+Among the three implementations, DyRACT based system proves to be the best accelerator in terms of throughput. 
 %\todo[inline]{Add some in-depth analysis for the overlay accelerators}
 Although all the three overlay accelerators show slight fluctuation of the throughput in MB/s, drastic changes happen when calculating in MOPS. 
 This is mainly due to a large number of I/O ports (especially for the last four benchmarks), which results in larger II values. 
@@ -154,14 +154,14 @@ In a nutshell, the linear TM overlay accelerators are more suitable to the bench
 
 \input{Figures_tex/pcie_xillybus_riffa_bw}
 
-Table~\ref{pcie_xillybus_riffa_area} shows the FPGA resource usage of PCIe-Xillybus-based system, RIFFA-based system and DyRACT-based system, respectively. 
+Table~\ref{pcie_xillybus_riffa_area} shows the FPGA resource usage of PCIe-Xillybus based system, RIFFA based system and DyRACT based system, respectively. 
 %RIFFA-Overlay consumes 15\% fewer LUTs, 49\% more FFs, 29$\times$ more BRAMs and the same DSP blocks compared to PCIe-Xillybus-Overlay. 
-The PCIe-Xillybus-based system consumes the least number of FFs (33\% fewer than the RIFFA-based system), while RIFFA-based system costs least number of LUTs (20\% fewer than DyRACT-based system) and DyRACT-based system is the most area efficient in BRAMs consumption (96\% fewer than RIFFA-based system). 
-While the logic and DSP resources used are comparable among all these implementations, there is a big difference in the BRAM utilization specifically for RIFFA-based system. 
+The PCIe-Xillybus based system consumes the least number of FFs (33\% fewer than the RIFFA based system), while RIFFA based system costs least number of LUTs (20\% fewer than DyRACT based system) and DyRACT based system is the most area efficient in BRAMs consumption (96\% fewer than RIFFA based system). 
+While the logic and DSP resources used are comparable among all these implementations, there is a big difference in the BRAM utilization specifically for RIFFA based system. 
 This is due to the half-duplex mode of the RIFFA interface, resulting in a significant BRAM consumption to implement the two large depth FWFT FIFOs. 
 Developing a full-duplex RIFFA based system would minimize the BRAM resource usage. 
-At current stage, DyRACT-based system and PCIe-Xillybus-based system are much better than RIFFA-based system in terms of area efficiency. 
-
+At current stage, DyRACT based system and PCIe-Xillybus based system are much better than RIFFA based system in terms of area efficiency. 
+ 
 \begin{table}[tb]
 	%	\renewcommand{\arraystretch}{1.2}
 	\caption{Area overhead of PCIe-based systems.}

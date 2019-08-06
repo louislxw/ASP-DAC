@@ -64,7 +64,7 @@ The middle layer supports up to 12 channels which send packets to the TX engine 
 The overlay which connects to the RX/TX FIFOs from the communication channels, is located on the top layer. 
 An example design of one channel for data transfer, along with driver and software code, is provided. 
 %Dedicated software APIs (\textit{fpga\_send} and \textit{fpga\_recv}) were developed as blocking functions.
-Integration of the linear TM overlay with RIFFA is quite similar to that of Xillybus, except that the standard FIFOs are replaced with first word fall through (FWFT) FIFOs to meet the timing closure. 
+Integration of the linear TM overlay with RIFFA is quite similar to that of Xillybus, except that the standard FIFOs are replaced with the first word fall through (FWFT) FIFOs to meet the timing closure. 
 %For a more complicated design, multiple channels (up to 12 per FPGA) can be instantiated to integrate with different user cores independently. 
 
 %\begin{figure}[tb]
@@ -94,7 +94,7 @@ Thus,  user can easily send the instructions and streaming data from the host PC
 A user-friendly programming model is proposed for the linear TM overlay integrated with DyRACT system. 
 There are three register files developed for overlay control purpose. 
 One register file (0x30) is written with a 4-bit tag, which is followed by a register file (0x34) to restore the instruction with its corresponding FU. 
-Another register file (0x38) is used to store the number of data words to be input to the first FU for a specific comptuter kernel (based on the instructions) and the value of (II-1), when the instruction load has been done. 
+Another register file (0x38) is used to store the number of data words to be input to the first FU for a specific compute kernel (based on the instructions) and the value of (II-1), when the instruction load has been done. 
 Afterwards, a bunch of user-defined data can be transferred to the FPGA, and will be sent back to the host PC after the processing of the overlay. 
 A snippet example code shows how to load the instructions, setup the overlay, and write the data to the FPGA is presented in Table~\ref{program}. 
 

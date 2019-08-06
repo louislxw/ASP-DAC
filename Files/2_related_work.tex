@@ -18,7 +18,7 @@ The ADRES overlay can achieve up to $1.6\times$ speedup on Fmax and a reduction 
 
 QuickDough~\cite{liu2015quickdough} was proposed to address FPGA design productivity issues. 
 It is comprised of an array of nearest neighbor interconnected processing elements (PEs), referred to as SCGRA overlay.  
-Application specific SCGRA overlay were implemented on Zynq, achieving a speedup of up to $9\times$ compared to the same application qunning on the Zynq ARM processor. 
+Application specific SCGRA overlay was implemented on Zynq, achieving a speedup of up to $9\times$ compared to the same application running on the Zynq ARM processor. 
 The 250 MHz FU consists of an ALU, multiport data memory ($256\times$32 bits) and customizable depth instruction ROM (Supporting 72-bit instructions) resulting in significant BRAM utilization. 
 Due to the excessive usage of BRAMs, it has limited scalability as a maximum implementation of $5\times$5 array can fit on Zynq, despite of the frequency degradation caused by the tight placement and route. 
 
@@ -49,7 +49,7 @@ It provides two interfaces, an AXI-Lite interface connected to general purpose (
 Xillybus~\cite{xillybus2018} is a representative commercial solution which supports both AXI (baseline) and PCIe (Revision XL) interfaces while providing portability across different FPGA devices. 
 %Northwest Logic is licensed closed source 
 While Xillybus is provided free of charge for research and teaching purposes, users have full access to customize the complete Xillybus project, including the hardware design, the device driver and the software applications, with good documentation provided. 
-The baseline Xillybus has a data rate of $\sim$300 MB/s running at 100 MHz on a Xilix Zynq, and a maximum data rate of $\sim$3.5 GB/s for PCIe Gen 2$\times$8 interfaces in Revision XL.
+The baseline Xillybus has a data rate of $\sim$300 MB/s running at 100 MHz on a Xilinx Zynq, and a maximum data rate of $\sim$3.5 GB/s for PCIe Gen 2$\times$8 interfaces in Revision XL.
 
 There are a number of academic PCIe interfacing solutions, such as DyRACT~\cite{vipin2014dyract} and EPEE~\cite{gong2014efficient}.
 
